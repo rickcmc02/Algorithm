@@ -13,15 +13,10 @@
 첫 번째 줄에는 총 단지수를 출력하시오. 그리고 각 단지내 집의 수를 오름차순으로 정렬하여 한 줄에 하나씩 출력하시오.
 '''
 
-# 수정중
-
 N = int(input()) # 입력 첫 줄 N 값 가져오기
 house = []
-visited = []
-result = []
 for _ in range(N) : # 집 배치도를 2차원 배열로 가져오기
     house.append(list(map(int, str(input()))))
-print(house)
 group_num = 0
 house_num = 0
 house_nums = []
@@ -33,15 +28,13 @@ dx = [0, -1, 0, 1]
 visited_lst = [[0] * N for _ in range(N)]
 
 def dfs(y, x):
-    global house_num 
+    global house_num
     house_num += 1
-    print("1", visited_lst)
     visited_lst[y][x] = 1
-    print("2", visited_lst)
     for i in range(4) :
         ny = y + dy[i]
         nx = x + dx[i]
-        if ny >= 0 and ny < N and nx >= 0 and nx < N and house[ny][nx] and (not visited_lst[ny][nx]) :
+        if ny in range(0,N) and nx in range(0,N) and house[ny][nx] and not visited_lst[ny][nx] :
             dfs(ny, nx)
 
 for i in range(N) :
@@ -54,8 +47,8 @@ for i in range(N) :
 
 house_nums.append(house_num)
 house_nums = house_nums[1:]
+house_nums.sort()
 
 print(group_num)
 for num_i in house_nums :
     print(num_i)
-    
