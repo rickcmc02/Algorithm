@@ -4,8 +4,8 @@ dy = [-1, 0, 1, 0]
 dx = [0, -1, 0, 1]
 
 def loc_control():
-map_lst = [[0] * N] * N
-visited_lst = [[0] * N] * N
+map_lst = [[0] * N for _ in range(N)]
+visited = [[0] * N for _ in range(N)]
 
 def dfs(y, x, cnt):
     map_lst[y][x] = cnt
