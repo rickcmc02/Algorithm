@@ -15,7 +15,7 @@ N×M크기의 배열로 표현되는 미로가 있다.
 출력
 첫째 줄에 지나야 하는 최소의 칸 수를 출력한다. 항상 도착위치로 이동할 수 있는 경우만 입력으로 주어진다.
 '''
-# Developing...
+# underDeveloping...
 
 # bfs
 from collections import deque
@@ -37,12 +37,14 @@ dy = [-1, 0, 1, 0]
 dx = [0, -1, 0, 1]
 dq = deque()
 first_dq = []
+n = 0
 
 def bfs(y, x):
     dq.append([y, x])
     visited[y][x] = 1
     
     while dq :
+        n += 1
         first_dq = dq[0]
         dq.popleft()
 
@@ -50,7 +52,6 @@ def bfs(y, x):
             ny = first_dq[0] + dy[i]
             nx = first_dq[1] + dx[i]
             if ny in range(0,v) and nx in range(0,h) and maze[ny][nx] != 0 and not visited[ny][nx] :
-                maze[ny][nx] = maze[y][x] + 1
                 visited[ny][nx] = 1
                 dq.append([ny, nx])
 
@@ -60,4 +61,4 @@ for i in range(v) :
             bfs(i,j)
 
 print(maze)
-print(maze[v-1][h-1] - 1)
+print(maze[v-1][h-1])
