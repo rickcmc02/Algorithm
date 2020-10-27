@@ -19,10 +19,9 @@ N×M크기의 배열로 표현되는 미로가 있다.
 # bfs
 from collections import deque
 
-N = input()
-N.split(' ')
+N = input().split(' ')
 v = int(N[0])
-h = int(N[2:])
+h = int(N[1])
 
 maze = []
 for _ in range(v) :
