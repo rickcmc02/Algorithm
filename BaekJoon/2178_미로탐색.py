@@ -20,29 +20,25 @@ N×M크기의 배열로 표현되는 미로가 있다.
 from collections import deque
 
 v, h = list(map(int, input().split(' ')))
-
-maze = []
-for _ in range(v) :
-    maze.append(list(map(int, str(input()))))
+maze = [list(map(int, list(input()))) for _ in range(v)]
 visited = [[0] * h for _ in range(v)]
 
 dy = [-1, 0, 1, 0]
 dx = [0, -1, 0, 1]
 dq = deque()
-first_dq = []
 
 def bfs(y, x):
     dq.append([y, x])
     visited[y][x] = 1
     
     while dq :
-        first_dq = dq.popleft()
+        pos = dq.popleft()
 
         for i in range(4) :
-            ny = first_dq[0] + dy[i]
-            nx = first_dq[1] + dx[i]
-            if ny in range(0,v) and nx in range(0,h) and maze[ny][nx] != 0 and not visited[ny][nx] :
-                maze[ny][nx] = maze[first_dq[0]][first_dq[1]] + 1
+            ny = pos[0] + dy[i]
+            nx = pos[1] + dx[i]
+            if 0 <= ny < v and 0 <= nx < h and maze[ny][nx] and not visited[ny][nx] :
+                maze[ny][nx] = maze[pos[0]][pos[1]] + 1
                 visited[ny][nx] = 1
                 dq.append([ny, nx])
 
@@ -51,4 +47,4 @@ for i in range(v) :
         if not visited[i][j] :
             bfs(i,j)
 
-print(maze[v-1][h-1])
+print(maze[-1][-1])
