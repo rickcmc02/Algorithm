@@ -29,6 +29,13 @@ rel_list = [list(input()).sort() for _ in range(r)]
 rel_list.sort()
 
 for rel_i in rel_list :
+    rel_i[0], rel_i[1] = rel_i[1], rel_i[0]
+    rel_list.append(rel_i)
 
+fri_q_1 = deque()
+fri_q_2 = deque()
 
-
+for rel_i in rel_list :
+    for i in rel_list :
+        if rel_i[1] == rel_list[i][0] and rel_i[0] != rel_list[i][1] :
+            fri_q_1.append(rel_list[i])
