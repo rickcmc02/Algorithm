@@ -25,24 +25,41 @@ D는 E와 친구다.
 from collections import deque
 
 n, m = map(int, input().split(' '))
-rel_list = [list(input()).sort() for _ in range(r)]
-rel_list.sort()
+rel_list = [list(input()).sort() for _ in range(m)]
 
 for rel_i in rel_list :
     rel_i[0], rel_i[1] = rel_i[1], rel_i[0]
     rel_list.append(rel_i)
 
-fri_q = deque()
+rel_list.sort()
+rel_dic = {}
+rel_dic[rel_list[0][0]] = [rel_list[0][1]]
+n_rel = 0
+ans = 0
+chk = 0
 
-
-
-
-
-
+for i in range(1, len(rel_list)) :
+    if rel_list[i-1][0] != rel_list[i][0] :
+        rel_dic[rel_list[i][0]] = []
 
 for rel_i in rel_list :
-    for i in rel_list :
-        if rel_i[0] == rel_list[i][1] and rel_i[1] != rel_list[i][0] :
-            fri_q_1.appendleft(rel_list[i])
-        if rel_i[1] == rel_list[i][0] and rel_i[0] != rel_list[i][1] :
-            fri_q_1.append(rel_list[i])
+    rel_dic[rel_i[0]].append(rel_i[1])
+
+for k in rel_dic.keys() :
+    for v in rel_dic[k] :
+        n_rel = 0
+        dfs(k, v)
+
+def dfs(key, value):
+    global chk
+    global n_rel
+    if chk :
+        return
+    n_rel += 1
+    if n_rel == 4 :
+        chk = 1
+        return
+    for v in rel_dic[value] :
+        dfs(value, v)
+
+print(chk)
