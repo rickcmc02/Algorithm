@@ -15,25 +15,22 @@ D는 E와 친구다.
 출력
 문제의 조건에 맞는 A, B, C, D, E가 존재하면 1을 없으면 0을 출력한다.
 '''
-# 줄줄이 이어지는 다섯명의 친구가 있는 경우
-
-# bfs
-# 두 친구 번호 중 작은 번호가 앞으로 가게 친구관계를 정렬해 놓고, 줄줄이 4관계 이상 진행이 가능한지 알아보기 or 친구관계 리스트가 len 5 이상
-# 이어가고자 하는 친구 리스트 자체를 deque로 만들어야 하나
-
+# dfs 갔던 곳 안가게 하는 방법이 없어서 그렇다.
 
 from collections import deque
 
 n, m = map(int, input().split(' '))
-rel_list = [list(input()).sort() for _ in range(m)]
+rel_list = [input().split(' ') for _ in range(m)]
+rev_list = []
 
 for rel_i in rel_list :
-    rel_i[0], rel_i[1] = rel_i[1], rel_i[0]
-    rel_list.append(rel_i)
+    rev_list.append([rel_i[1], rel_i[0]])
 
+rel_list += rev_list
 rel_list.sort()
+
 rel_dic = {}
-rel_dic[rel_list[0][0]] = [rel_list[0][1]]
+rel_dic[rel_list[0][0]] = []
 n_rel = 0
 ans = 0
 chk = 0
@@ -45,11 +42,6 @@ for i in range(1, len(rel_list)) :
 for rel_i in rel_list :
     rel_dic[rel_i[0]].append(rel_i[1])
 
-for k in rel_dic.keys() :
-    for v in rel_dic[k] :
-        n_rel = 0
-        dfs(k, v)
-
 def dfs(key, value):
     global chk
     global n_rel
@@ -60,6 +52,13 @@ def dfs(key, value):
         chk = 1
         return
     for v in rel_dic[value] :
-        dfs(value, v)
+        if v != key :
+            print(key, value, v)
+            dfs(value, v)
+
+for k in rel_dic.keys() :
+    for v in rel_dic[k] :
+        n_rel = 0
+        dfs(k, v)
 
 print(chk)
