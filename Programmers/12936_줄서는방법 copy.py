@@ -14,21 +14,21 @@ n은 20이하의 자연수 입니다.
 k는 n! 이하의 자연수 입니다.
 '''
 
-def solution(n, k):
-    if n == 1 :
-        return [1]
+# 일부 실행 오류 - 예외 잡기 or 로직 변경
 
+def solution(n, k): 
     result = []
-    num_list = list(range(1, n+1))
-    fac_list = list(range(1, n+1))
+    people_list = list(range(1, n+1))
 
-    for i in range(len(fac_list) - 1) :
-        fac_list[i+1] *= fac_list[i]
+    while people_list :
+        n -= 1
+        facto = 1
+        for i in range(n + 1) :
+            facto *= (i+1)
+        people_num = people_list.pop(k // facto)
+        result.append(people_num)
+        k = k % facto
+        if k == 1 : break
 
-    k -= 1
-    for i in range(2, n+1) :
-        num = k // fac_list[n-i]
-        k = k % fac_list[n-i]
-        result.append(num_list.pop(num))
-
-    return result + num_list
+    result += people_list
+    return result
