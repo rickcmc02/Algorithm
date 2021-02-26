@@ -4,4 +4,4 @@ f1 을 f2 로 나눈 값을 출력해보자.
 '''
 
 f1, f2 = map(float, input().split())
-print(round(f1 / f2, 3))
+print("%.3f" % (f1 / f2))
