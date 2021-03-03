@@ -16,24 +16,50 @@ computer[i][i]는 항상 1입니다.
 # 아.. 해석을 잘못한듯? dfs말고 다른걸로 접근해야할 것 같다.
 
 # dfs
-dy = [1, 0]
-dx = [0, 1]
+# dy = [1, 0]
+# dx = [0, 1]
 
-def dfs(y, x, n, network):
-    visited_list[y][x] = 1
-    for i in range(2) :
-        ny = y + dy[i]
-        nx = x + dx[i]
-        if ny in range(0,n) and nx in range(0,n) and network[ny][nx] and not visited_list[ny][nx] :
-            dfs(ny, nx, n, network)
+# def dfs(y, x, n, network):
+#     visited_list[y][x] = 1
+#     for i in range(2) :
+#         ny = y + dy[i]
+#         nx = x + dx[i]
+#         if ny in range(0,n) and nx in range(0,n) and network[ny][nx] and not visited_list[ny][nx] :
+#             dfs(ny, nx, n, network)
 
-def solution(n, network):
-    network_num = 0
-    global visited_list
-    visited_list = [[0] * n for _ in range(n)]
-    for j in range(n) :
-        for i in range(j, n) :
-            if network[i][j] and not visited_list[i][j] :
-                network_num += 1
-                dfs(i, j, n, network)
-    return network_num
+# def solution(n, network):
+#     network_num = 0
+#     global visited_list
+#     visited_list = [[0] * n for _ in range(n)]
+#     for j in range(n) :
+#         for i in range(j, n) :
+#             if network[i][j] and not visited_list[i][j] :
+#                 network_num += 1
+#                 dfs(i, j, n, network)
+#     return network_num
+
+
+def solution(n, computers):
+    answer = []
+    links = []
+    numbers = [1] * n
+
+    for i in range(n):
+        computers[i][i] = 0
+
+    for j, cs in enumerate(computers):
+        links.append([])
+        for k, c in enumerate(cs):
+            if c and k > j:
+                links[-1].append(k)
+
+    for l, link in enumerate(links):
+        numbers[l] = 0
+        answer
+
+    return answer
+
+
+print(solution(3, [[1, 1, 0], [1, 1, 1], [0, 1, 1]]))
+
+각 리스트의 length만큼 하나씩 빼면 된다.
