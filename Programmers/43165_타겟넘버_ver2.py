@@ -14,30 +14,32 @@ n개의 음이 아닌 정수가 있습니다. 이 수를 적절히 더하거나 
 타겟 넘버는 1 이상 1000 이하인 자연수입니다.
 '''
 
-def plus_minus(num_l, sum_n, tgt):
-    sum_list = [sum_n]
-    diff = sum_n - tgt
-    
-    while num_l[-1] * 2 > diff :
-        num_l.pop()
+answer = 0
 
-    for i in range(len(num_l)) :
-        temp_l = [0]
-        for j in range(len(sum_list)) :
-            temp_l.append(sum_list[j] - 2*num_l[i])
-            temp_l.append(sum_list[j])
-        sum_list = temp_l
-    return sum_list.count(tgt)
 
-def solution(numbers_list, target):
-    numbers_list.sort()
-    
-    sum_numbers = sum(numbers_list)
-    if sum_numbers < target :
+def plus_minus(nums, tag_num, sum_num, index):
+    global answer
+
+    if index == len(nums) - 1:
+        if sum_num == tag_num:
+            answer += 1
+    else:
+        index += 1
+        plus_minus(nums, tag_num, sum_num + nums[index], index)
+        plus_minus(nums, tag_num, sum_num - nums[index], index)
+
+
+def solution(numbers, target):
+    global answer
+    sum_numbers = sum(numbers)
+
+    if sum_numbers < target:
         return 0
-    elif sum_numbers == target :
+    elif sum_numbers == target:
         return 1
-    else :
-        return plus_minus(numbers_list, sum_numbers, target)
+    else:
+        plus_minus(numbers, target, 0, -1)
+    return answer
 
-# print(solution([1, 1, 1, 1, 1], 3))
+
+print(solution([1, 1, 1, 1, 1], 3))

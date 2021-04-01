@@ -9,7 +9,7 @@ for p in plans :
         y += 1
     elif p == 'U' and x > 1 :
         x -= 1
-    elif p == 'D' adn x < n :
+    elif p == 'D' and x < n :
         x += 1
 
 print(x, y)
