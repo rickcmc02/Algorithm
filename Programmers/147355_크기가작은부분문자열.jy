@@ -24,3 +24,23 @@ p의 길이가 1이므로 t의 부분문자열은 "5", "0", 0", "2", "2", "0", "
 p의 길이가 2이므로 t의 부분문자열은 "10", "02", "20", "03"이며, 이중 15보다 작거나 같은 숫자는 "10", "02", "03" 이렇게 3개입니다. "02"와 "03"은 각각 2, 3에 해당한다는 점에 주의하세요
 */
 
+function solution(t, p) {
+    let answer = 0;
+    const tLen = t.length;
+    const pLen = p.length;
+    
+    let [startIdx, endIdx] = [0, pLen];
+    let slicedT = "";
+    let tValue = 0;
+    let pValue = parseInt(p);
+    
+    while (endIdx < tLen + 1) {
+        slicedT = t.slice(startIdx, endIdx);
+        tValue = parseInt(slicedT);
+        if (tValue <= pValue) answer++;
+        startIdx++;
+        endIdx++;
+    }
+    
+    return answer;
+}
