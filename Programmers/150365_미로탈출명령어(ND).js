@@ -112,6 +112,5 @@ function solution(n, m, x, y, r, c, k) {
 
   let answerArr = [];
   let answer = "impossible";
-
   return answer;
 }
