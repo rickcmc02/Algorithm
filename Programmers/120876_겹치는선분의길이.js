@@ -33,3 +33,20 @@ lines	result
 두 번째와 세 번째 선분 [3, 9] 구간에서 겹칩니다.
 따라서 [1, 9] 구간에 두 개 이상의 선분이 겹쳐있으므로, 8을 return 합니다.
 */
+
+function solution(lines) {
+    let layeredLine = 0;
+    let visited = new Array(201).fill(0); // -100에서 100까지 커버
+    
+    lines.forEach((line) => {
+        for (let i = line[0] + 100; i < line[1] + 100; i++) {
+            visited[i]++;
+        }
+    })
+    
+    visited.forEach((visit) => {
+        if (visit > 1) layeredLine++;
+    })
+    
+    return layeredLine;
+}'
