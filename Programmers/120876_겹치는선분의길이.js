@@ -35,18 +35,18 @@ lines	result
 */
 
 function solution(lines) {
-    let layeredLine = 0;
-    let visited = new Array(201).fill(0); // -100에서 100까지 커버
-    
-    lines.forEach((line) => {
-        for (let i = line[0] + 100; i < line[1] + 100; i++) {
-            visited[i]++;
-        }
-    })
-    
-    visited.forEach((visit) => {
-        if (visit > 1) layeredLine++;
-    })
-    
-    return layeredLine;
-}'
+  let layeredLine = 0;
+  let visited = new Array(201).fill(0); // -100에서 100까지 커버
+
+  lines.forEach((line) => {
+    for (let i = line[0] + 100; i < line[1] + 100; i++) {
+      visited[i]++;
+    }
+  });
+
+  visited.forEach((visit) => {
+    if (visit > 1) layeredLine++;
+  });
+
+  return layeredLine;
+}
