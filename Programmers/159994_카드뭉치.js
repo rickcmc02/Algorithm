@@ -34,30 +34,20 @@ cards1에서 "i"를 사용하고 cards2에서 "want"와 "to"를 사용하여 "i 
 
 function solution(cards1, cards2, goal) {
   let possible = "Yes";
-  let indexes1 = [];
-  let indexes2 = [];
 
-  for (let c1 = 0; c1 < cards1.length; c1++) {
-    let idx = goal.indexOf(cards1[c1]);
-    if (idx < 0) continue;
-    if (indexes1.length && indexes1[c1 - 1] > idx) {
+  let idx1 = 0;
+  let idx2 = 0;
+  for (let g = 0; g < goal.length; g++) {
+    let word = goal[g];
+    if (word === cards1[idx1]) {
+      idx1++;
+      continue;
+    } else if (word === cards2[idx2]) {
+      idx2++;
+      continue;
+    } else {
       possible = "No";
       break;
-    } else {
-      indexes1.push(idx);
-    }
-  }
-
-  if (possible === "Yes") {
-    for (let c2 = 0; c2 < cards2.length; c2++) {
-      let idx = goal.indexOf(cards2[c2]);
-      if (idx < 0) continue;
-      if (indexes2.length && indexes2[c2 - 1] > idx) {
-        possible = "No";
-        break;
-      } else {
-        indexes2.push(idx);
-      }
     }
   }
 
