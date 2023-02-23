@@ -59,13 +59,12 @@ function solution(polynomial) {
   }
 
   let polyAnswer = "0";
-  if (xSum && intSum) {
-    polyAnswer = xSum === 1 ? `x + ${intSum}` : `${xSum}x + ${intSum}`;
-  } else if (xSum) {
+  if (xSum) {
     polyAnswer = xSum === 1 ? "x" : `${xSum}x`;
-  } else if (intSum) {
-    polyAnswer = `${intSum}`;
-  }
+    if (intSum) {
+      polyAnswer = polyAnswer + ` + ${intSum}`;
+    }
+  } else if (intSum) polyAnswer = intSum + "";
 
   return polyAnswer;
 }
