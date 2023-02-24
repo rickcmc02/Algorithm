@@ -62,7 +62,7 @@ function solution(polynomial) {
   if (xSum) {
     polyAnswer = xSum === 1 ? "x" : `${xSum}x`;
     if (intSum) {
-      polyAnswer = polyAnswer + ` + ${intSum}`;
+      polyAnswer = `${polyAnswer} + ${intSum}`;
     }
   } else if (intSum) polyAnswer = intSum + "";
 
