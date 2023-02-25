@@ -61,3 +61,35 @@ keymap	targets	result
 따라서 총합인 6을 두 번째 인덱스에 저장합니다.
 결과적으로 [4, 6]을 return 합니다.
 */
+
+function solution(keymap, targets) {
+  const strokes = [];
+  const keyDict = {};
+
+  keymap.forEach((keys) => {
+    const vstDict = {};
+    for (let k = 0; k < keys.length; k++) {
+      const letter = keys[k];
+      const order = k + 1;
+      if (vstDict[letter]) continue;
+      else vstDict[letter] = order;
+      if (!keyDict[letter]) keyDict[letter] = order;
+      else if (keyDict[letter] > order) keyDict[letter] = order;
+    }
+  });
+
+  targets.forEach((target) => {
+    let strokeNum = 0;
+    for (let t = 0; t < target.length; t++) {
+      const letter = target[t];
+      if (keyDict[letter]) strokeNum += keyDict[letter];
+      else {
+        strokeNum = -1;
+        break;
+      }
+    }
+    strokes.push(strokeNum);
+  });
+
+  return strokes;
+}
