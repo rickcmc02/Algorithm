@@ -35,42 +35,34 @@ X, Y의 짝꿍은 321입니다. 따라서 "321"을 return합니다.
 지문에 설명된 예시와 같습니다.
 */
 
-function solution(X, Y) {
-  let pairKing = "";
-  const xNumDict = {};
-  const yNumDict = {};
-  const commDict = {};
-
-  for (let x = 0; x < X.length; x++) {
-    const numStr = X[x];
-    if (xNumDict[numStr]) xNumDict[numStr] += 1;
-    else xNumDict[numStr] = 1;
-  }
-  for (let y = 0; y < Y.length; y++) {
-    const numStr = Y[y];
-    if (yNumDict[numStr]) yNumDict[numStr] += 1;
-    else yNumDict[numStr] = 1;
-  }
-
-  const xNums = Object.keys(xNumDict);
-  const yNums = Object.keys(yNumDict);
-  const isXshorter = xNums.length < yNums.length ? true : false;
-  const sNumDict = isXshorter ? xNumDict : yNumDict;
-  const lNumDict = isXshorter ? yNumDict : xNumDict;
-  const sNums = Object.keys(sNumDict);
-
-  for (let s = sNums.length - 1; s > -1; s--) {
-    const targetNum = sNums[s];
-    if (lNumDict[targetNum]) {
-      const sNumShows = sNumDict[targetNum];
-      const lNumShows = lNumDict[targetNum];
-      const repeatNum = sNumShows < lNumShows ? sNumShows : lNumShows;
-      pairKing += targetNum.repeat(repeatNum);
-    }
-  }
-
-  if (!pairKing) pairKing = "-1";
-  else if (pairKing[0] === "0") pairKing = "0";
-
-  return pairKing;
+function solution(keymap, targets) {
+    const strokes = [];
+    const keyDict = {};
+    
+    keymap.forEach((keys) => {
+        const vstDict = {}; // 이번 keys 시행에서 중복된 키 체크
+        for (let k = 0; k < keys.length; k++) {
+            const letter = keys[k];
+            const order = k + 1;
+            if (vstDict[letter]) continue; // 이번 시행에서 중복된 글자 방문시 pass
+            else vstDict[letter] = order;
+            if (!keyDict[letter]) keyDict[letter] = order;
+            else if (keyDict[letter] > order) keyDict[letter] = order;
+        }
+    })
+    
+    targets.forEach((target) => {
+        let strokeNum = 0;
+        for (let t = 0; t < target.length; t++) {
+            const letter = target[t];
+            if (keyDict[letter]) strokeNum += keyDict[letter];
+            else {
+                strokeNum = -1; // 없는 문자인 경우
+                break;
+            }
+        }
+        strokes.push(strokeNum);
+    })
+    
+    return strokes;
 }
