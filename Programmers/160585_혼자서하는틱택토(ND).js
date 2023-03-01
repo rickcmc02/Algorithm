@@ -63,7 +63,8 @@ function solution(board) {
   const [oNum, xNum, oPos, xPos] = checkOX(board);
   // o 선공 위배 체크
   if (xNum > oNum) return 0;
-  // 이기는 경우 8가지
+  // 이기는 경우 8가지 체크
+  const [oWins, xWins] = checkWin(oPos, xPos);
 
   return 1;
 }
@@ -90,4 +91,10 @@ const checkOX = (board) => {
   }
 
   return [oNum, xNum, oPos, xPos];
+};
+
+const checkWin = (oPos, xPos) => {
+  console.log(oPos);
+  console.log(xPos);
+  return [1, 2];
 };
