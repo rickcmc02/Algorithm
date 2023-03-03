@@ -96,5 +96,12 @@ const checkOX = (board) => {
 const checkWin = (oPos, xPos) => {
   console.log(oPos);
   console.log(xPos);
+
+  if (oPos[0]) {
+    if (oPos[0][0] === 0 && oPos[0][1] === 0) {
+      console.log("진입");
+    }
+  }
+
   return [1, 2];
 };
