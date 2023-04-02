@@ -9,12 +9,12 @@ function solution(grade) {
     rankNum++;
     if (lastGrade !== grade) {
       srDict[grade] = rankNum;
-      lastGrade = grade;
+      lastGrade = grade; // 점수 달라질때마다 순위 기록하기
     }
   });
 
   grade.forEach((grd) => {
-    rankArr.push(srDict[grd]);
+    rankArr.push(srDict[grd]); // 점수 - 랭크 매칭
   });
 
   return rankArr;
