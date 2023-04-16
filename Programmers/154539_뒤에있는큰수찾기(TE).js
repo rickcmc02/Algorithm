@@ -50,3 +50,6 @@ function solution(numbers) {
 
   return resNums;
 }
+
+// 처음에 for문을 돌리면서 key 값에는 숫자를, value에는 그 숫자가 나오는 index값 리스트를 저장
+// key값만 모아놓은 리스트 (중복된 것 없이 가지는 number의 set과 같은 수) - 에서 조회해보기
