@@ -26,3 +26,25 @@
 // +4+1-2+1 = 4
 // +4-1+2-1 = 4
 // 총 2가지 방법이 있으므로, 2를 return 합니다.
+
+let res = 0;
+
+const plusMinus = (nums, tgt, tot, idx) => {
+  if (idx === nums.length - 1) {
+    if (tot === tgt) res++;
+  } else {
+    idx++;
+    plusMinus(nums, tgt, tot + nums[idx], idx);
+    plusMinus(nums, tgt, tot - nums[idx], idx);
+  }
+};
+
+const solution = (numbers, target) => {
+  let total = 0;
+  numbers.forEach((num) => (total += num));
+
+  if (total < target) return 0;
+  else if (total === target) return 1;
+  else plusMinus(numbers, target, 0, -1);
+  return res;
+};
