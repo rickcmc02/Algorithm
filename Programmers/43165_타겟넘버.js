@@ -48,3 +48,24 @@ const solution = (numbers, target) => {
   else plusMinus(numbers, target, 0, -1);
   return res;
 };
+
+// joon
+
+function solution(numbers, target) {
+  let answer = 0;
+
+  dfs(0, 0);
+
+  return answer;
+
+  function dfs(number, idx) {
+    if (numbers.length === idx) {
+      if (target === number) answer++;
+      else return 0;
+    } else {
+      dfs(number + numbers[idx], idx + 1);
+      dfs(number - numbers[idx], idx + 1);
+    }
+    return 0;
+  }
+}
