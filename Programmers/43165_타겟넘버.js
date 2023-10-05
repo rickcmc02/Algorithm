@@ -49,7 +49,7 @@ const solution = (numbers, target) => {
   return res;
 };
 
-// joon
+// joon-su
 
 function solution(numbers, target) {
   let answer = 0;
