@@ -22,33 +22,45 @@ storey	result
 */
 
 function solution(storey) {
-  // 각 자리 수를 다 없애야 한다
-  // 낮은 자리의 수를 없애는 과정에서 높은 자리의 수에 영향을 미칠 수 있다. (+일 경우)
-  // 그러므로 큰 자리부터 이동한다
-
   let answer = 0;
-  let numSto = storey;
-  let strSto = "";
-  let firstNum = 0;
-  let deciNum = 0;
-  let bNum = 0;
-  let tNum = 0;
 
-  while (numSto) {
-    strSto = numSto + "";
-    firstNum = parseInt(strSto[0]);
-    deciNum = Math.pow(10, strSto.length);
-    bNum = numSto;
-    tNum = deciNum - bNum;
+  // 작은 자리수부터 각 자리수별 더하기 or 빼기 전략의 수 조합 -> 2의 자리수 제곱만큼 경우의 수 존재
+  function plusStrategy(num, time) {
+    let trial = 0;
+    const remain = num % 10;
+    if (remain) trial = 10 - remain;
 
-    if (bNum > tNum) {
-      answer += 1 + parseInt(tNum / (deciNum / 10));
-      numSto = tNum % (deciNum / 10);
-    } else {
-      answer += firstNum;
-      numSto = bNum % (deciNum / 10);
+    const addedNum = num + trial;
+    const addedTry = time + trial;
+    if (addedNum === 10) {
+      if (answer === 0 || addedTry + 1 < answer) answer = addedTry + 1;
+      return;
     }
+    if (answer > 0 && answer < addedTry) return;
+
+    plusStrategy(addedNum / 10, addedTry);
+    minusStrategy(addedNum / 10, addedTry);
   }
+
+  function minusStrategy(num, time) {
+    let trial = 0;
+    const remain = num % 10;
+    if (remain) trial = remain;
+
+    const subtrNum = num - trial;
+    const addedTry = time + trial;
+    if (subtrNum === 0) {
+      if (answer === 0 || addedTry < answer) answer = addedTry;
+      return;
+    }
+    if (answer > 0 && answer < addedTry) return;
+
+    plusStrategy(subtrNum / 10, addedTry);
+    minusStrategy(subtrNum / 10, addedTry);
+  }
+
+  plusStrategy(storey, 0);
+  minusStrategy(storey, 0);
 
   return answer;
 }
