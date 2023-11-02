@@ -24,7 +24,6 @@ storey	result
 function solution(storey) {
   let answer = 0;
 
-  // 작은 자리수부터 각 자리수별 더하기 or 빼기 전략의 수 조합 -> 2의 자리수 제곱만큼 경우의 수 존재
   function plusStrategy(num, time) {
     let trial = 0;
     const remain = num % 10;
