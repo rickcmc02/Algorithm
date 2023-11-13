@@ -79,3 +79,36 @@ users	emoticons	result
 위와 같이 할인하면 4명의 이모티콘 플러스 가입자와 13,860원의 판매액을 달성할 수 있습니다. 다른 할인율을 적용하여 이모티콘을 판매할 수 있지만 이보다 이모티콘 플러스 서비스 가입자를 최대한 늘리면서, 이모티콘 판매액 또한 최대로 늘리는 방법은 없습니다.
 따라서, [4, 13860]을 return 하면 됩니다.
 */
+
+function solution(users, emoticons) {
+  const subsNsales = [0, 0];
+  const sumPrice = emoticons.reduce((a, b) => a + b, 0);
+  let highest = 0;
+  let minGap = 1000000;
+  let numUser = 0;
+
+  for (const [perc, edge] of users) {
+    if ((sumPrice * (100 - perc)) / 100 >= edge) {
+      if (perc > highest) {
+        highest = perc;
+      }
+    }
+  }
+
+  console.log(highest);
+
+  const minSum = (sumPrice * (100 - highest)) / 100;
+  for (const [perc, edge] of users) {
+    if (highest >= perc && minSum >= edge) {
+      numUser++;
+      const diff = minSum - edge;
+      if (diff < minGap) {
+        minGap = diff;
+      }
+    }
+  }
+
+  console.log(numUser, minGap);
+
+  return subsNsales;
+}
