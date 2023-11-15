@@ -81,7 +81,7 @@ users	emoticons	result
 */
 
 function solution(users, emoticons) {
-  const subsNsales = [0, 0];
+  let subsNsales = [0, 0];
   const rates = [10, 20, 30, 40];
   const scenarios = [];
   const emoLen = emoticons.length;
@@ -106,10 +106,23 @@ function solution(users, emoticons) {
       let sum = 0;
       let idx = 0;
       for (let rate of scenario) {
-        if (user[0] >= rate) {
-          sum += emoticons[idx];
+        if (rate >= user[0]) {
+          sum += (emoticons[idx] * (100 - rate)) / 100;
         }
         idx++;
+      }
+      if (user[1] > sum) {
+        sNs[1] += sum;
+      } else {
+        sNs[0]++;
+      }
+    }
+
+    if (sNs[0] > subsNsales[0]) {
+      subsNsales = sNs;
+    } else if (sNs[0] === subsNsales[0]) {
+      if (sNs[1] > subsNsales[1]) {
+        subsNsales = sNs;
       }
     }
   }
