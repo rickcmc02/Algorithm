@@ -82,33 +82,37 @@ users	emoticons	result
 
 function solution(users, emoticons) {
   const subsNsales = [0, 0];
-  const sumPrice = emoticons.reduce((a, b) => a + b, 0);
-  let highest = 0;
-  let minGap = 1000000;
-  let numUser = 0;
+  const rates = [10, 20, 30, 40];
+  const scenarios = [];
+  const emoLen = emoticons.length;
 
-  for (const [perc, edge] of users) {
-    if ((sumPrice * (100 - perc)) / 100 >= edge) {
-      if (perc > highest) {
-        highest = perc;
-      }
+  function setCases(emoIdx, scenario) {
+    if (emoIdx === emoLen) {
+      scenarios.push(scenario);
+      return;
+    }
+    for (let rate of rates) {
+      const copied = [...scenario];
+      copied.push(rate);
+      setCases(emoIdx + 1, copied);
     }
   }
 
-  console.log(highest);
+  setCases(0, []);
 
-  const minSum = (sumPrice * (100 - highest)) / 100;
-  for (const [perc, edge] of users) {
-    if (highest >= perc && minSum >= edge) {
-      numUser++;
-      const diff = minSum - edge;
-      if (diff < minGap) {
-        minGap = diff;
+  for (let scenario of scenarios) {
+    const sNs = [0, 0];
+    for (let user of users) {
+      let sum = 0;
+      let idx = 0;
+      for (let rate of scenario) {
+        if (user[0] >= rate) {
+          sum += emoticons[idx];
+        }
+        idx++;
       }
     }
   }
-
-  console.log(numUser, minGap);
 
   return subsNsales;
 }
