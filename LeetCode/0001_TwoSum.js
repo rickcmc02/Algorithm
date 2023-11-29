@@ -29,3 +29,21 @@ Constraints:
 -109 <= target <= 109
 Only one valid answer exists.
 */
+
+const twoSum = function (nums, target) {
+  const numsLen = nums.length;
+  let index = 0;
+  let answer;
+  for (const num of nums) {
+    const diff = target - num;
+    for (let i = index + 1; i < numsLen; i++) {
+      if (diff === nums[i]) {
+        answer = [index, i];
+        break;
+      }
+    }
+    if (answer) break;
+    index++;
+  }
+  return answer;
+};
