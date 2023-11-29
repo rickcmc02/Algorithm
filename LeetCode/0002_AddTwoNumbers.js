@@ -27,3 +27,36 @@ The number of nodes in each linked list is in the range [1, 100].
 0 <= Node.val <= 9
 It is guaranteed that the list represents a number that does not have leading zeros.
 */
+
+const addTwoNumbers = function (l1, l2) {
+  let sumVal = l1.val + l2.val;
+  let decimalNum = sumVal > 9 ? 1 : 0;
+  let lastDigit = decimalNum ? sumVal - 10 : sumVal;
+  const numbers = [lastDigit];
+  let nextL1 = l1.next;
+  let nextL2 = l2.next;
+
+  while (nextL1 || nextL2) {
+    sumVal = decimalNum;
+    if (nextL1) {
+      sumVal += nextL1.val;
+      nextL1 = nextL1.next;
+    }
+    if (nextL2) {
+      sumVal += nextL2.val;
+      nextL2 = nextL2.next;
+    }
+    decimalNum = sumVal > 9 ? 1 : 0;
+    lastDigit = decimalNum ? sumVal - 10 : sumVal;
+    numbers.push(lastDigit);
+  }
+
+  if (decimalNum) numbers.push(decimalNum);
+
+  let answer = null;
+  for (let i = numbers.length - 1; i > -1; i--) {
+    answer = { val: numbers[i], next: answer };
+  }
+
+  return answer;
+};
