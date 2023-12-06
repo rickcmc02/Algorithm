@@ -73,7 +73,7 @@ const romanToInt = function (s) {
   };
 
   let answer = 0;
-  const index = s.length;
+  let index = s.length;
   while (index > 0) {
     index--;
     const romanLetter = s[index];
