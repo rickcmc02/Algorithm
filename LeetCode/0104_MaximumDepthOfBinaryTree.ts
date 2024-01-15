@@ -21,3 +21,21 @@ Constraints:
 The number of nodes in the tree is in the range [0, 104].
 -100 <= Node.val <= 100
 */
+
+interface TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+}
+
+function digger(node: TreeNode | null, depth: number): number {
+  if (!node) return depth;
+  const leftDepth = digger(node.left, depth + 1);
+  const rightDepth = digger(node.right, depth + 1);
+  if (leftDepth > rightDepth) return leftDepth;
+  else return rightDepth;
+}
+
+function maxDepth(root: TreeNode | null): number {
+  return digger(root, 0);
+}
