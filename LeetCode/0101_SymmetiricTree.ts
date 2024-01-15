@@ -36,48 +36,24 @@ interface TreeNode {
   right: TreeNode | null;
 }
 
-function isSymmetric(root: TreeNode | null): boolean {
-  return true;
+function compareSection(
+  sectionA: TreeNode | null,
+  sectionB: TreeNode | null
+): boolean {
+  if (sectionA === null && sectionB === null) return true;
+  if (!(sectionA && sectionB)) return false;
+
+  if (sectionA.val === sectionB.val) {
+    return (
+      compareSection(sectionA.left, sectionB.right) &&
+      compareSection(sectionA.right, sectionB.left)
+    );
+  } else return false;
 }
 
-// console.log(rootLen);
-
-// if (!rootLen) return false;
-// else if (rootLen === 1) return true;
-
-// let lumpSize: number = 1;
-// let lumpA: (number | null)[] = [];
-// let isSymmetric = true;
-// let isFullA = false;
-// let aIdx = 0;
-// let idx = 1;
-
-// while (idx < rootLen) {
-//   const nodeVal = root[idx];
-
-//   if (!isFullA) {
-//     lumpA.push(nodeVal);
-//     aIdx++;
-//     isSymmetric = false;
-
-//     console.log(aIdx, lumpSize, "lumpSize");
-
-//     if (aIdx === lumpSize) isFullA = true;
-//   } else {
-//     aIdx--;
-//     console.log(lumpA[aIdx], nodeVal);
-//     if (lumpA[aIdx] !== nodeVal) break;
-
-//     if (aIdx === 0) {
-//       lumpA = [];
-//       isFullA = false;
-//       isSymmetric = true;
-//       lumpSize *= 2;
-//     }
-//   }
-
-//   idx++;
-// }
-
-//   return isSymmetric;
-// }
+function isSymmetric(root: TreeNode): boolean {
+  return (
+    compareSection(root.left, root.right) &&
+    compareSection(root.right, root.left)
+  );
+}
