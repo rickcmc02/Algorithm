@@ -27,3 +27,17 @@ Constraints:
 The number of nodes in both trees is in the range [0, 100].
 -104 <= Node.val <= 104
 */
+
+interface TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+}
+
+function isSameTree(p: TreeNode | null, q: TreeNode | null): boolean {
+  if (!p && !q) return true;
+  if (!(p && q)) return false;
+  if (p.val === q.val)
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+  else return false;
+}
