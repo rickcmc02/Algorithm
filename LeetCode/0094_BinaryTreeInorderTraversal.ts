@@ -29,3 +29,18 @@ interface TreeNode {
   left: TreeNode | null;
   right: TreeNode | null;
 }
+
+let nodeValues: number[];
+
+function checkNodeValues(tree: TreeNode | null): void {
+  if (!tree) return;
+  if (tree.left) checkNodeValues(tree.left);
+  if (!isNaN(tree.val)) nodeValues.push(tree.val);
+  if (tree.right) checkNodeValues(tree.right);
+}
+
+function inorderTraversal(root: TreeNode | null): number[] {
+  nodeValues = [];
+  checkNodeValues(root);
+  return nodeValues;
+}
