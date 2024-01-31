@@ -24,6 +24,12 @@ The number of nodes in the tree is in the range [0, 105].
 -1000 <= Node.val <= 1000
 */
 
+interface TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+}
+
 function minDepth(root: TreeNode | null): number {
   let depth = 0;
   if (!root) return depth;

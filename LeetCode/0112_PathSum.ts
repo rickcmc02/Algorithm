@@ -34,6 +34,12 @@ The number of nodes in the tree is in the range [0, 5000].
 -1000 <= targetSum <= 1000
 */
 
+interface TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+}
+
 function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
   let isPossible = false;
   function buildPathSum(tn: TreeNode | null, av: number): void {
