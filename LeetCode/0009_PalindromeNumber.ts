@@ -29,3 +29,21 @@ Constraints:
 
 Follow up: Could you solve it without converting the integer to a string?
 */
+
+function isPalindrome(x: number): boolean {
+  if (x < 0) return false;
+  if (x < 10) return true;
+
+  let isPalindrome = true;
+  const strX = x.toString();
+  const xLen = strX.length;
+  for (let i = 0; i < xLen; i++) {
+    const ri = xLen - 1 - i;
+    if (i > ri) break;
+    if (strX[i] !== strX[ri]) {
+      isPalindrome = false;
+      break;
+    }
+  }
+  return isPalindrome;
+}
