@@ -36,3 +36,22 @@ pos is -1 or a valid index in the linked-list.
 
 Follow up: Can you solve it using O(1) (i.e. constant) memory?
 */
+
+interface ListNode {
+  val: number;
+  next: ListNode | null;
+}
+
+function hasCycle(head: ListNode | null): boolean {
+  let curr = head;
+  let isCycled = false;
+  while (curr?.next) {
+    curr.val = 100001;
+    curr = curr.next;
+    if (curr.val === 100001) {
+      isCycled = true;
+      break;
+    }
+  }
+  return isCycled;
+}
