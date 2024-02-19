@@ -56,3 +56,36 @@ The number of nodes of listB is in the n.
 intersectVal is 0 if listA and listB do not intersect.
 intersectVal == listA[skipA] == listB[skipB] if listA and listB intersect.
 */
+
+function getIntersectionNode(
+  headA: ListNode | null,
+  headB: ListNode | null
+): ListNode | null {
+  let aLNLen = 1;
+  let bLNLen = 1;
+  const aLNList = [headA];
+  const bLNList = [headB];
+
+  let aCurr = headA;
+  let bCurr = headB;
+  while (aCurr?.next) {
+    aLNList.push(aCurr.next);
+    aCurr = aCurr.next;
+    aLNLen++;
+  }
+  while (bCurr?.next) {
+    bLNList.push(bCurr.next);
+    bCurr = bCurr.next;
+    bLNLen++;
+  }
+
+  const minLen = aLNLen > bLNLen ? bLNLen : aLNLen;
+  let intersectReverseIdx = 0;
+  for (let idx = 1; idx < minLen + 1; idx++) {
+    if (aLNList[aLNLen - idx] === bLNList[bLNLen - idx])
+      intersectReverseIdx = idx;
+    else break;
+  }
+  if (intersectReverseIdx) return aLNList[aLNLen - intersectReverseIdx];
+  return null;
+}
