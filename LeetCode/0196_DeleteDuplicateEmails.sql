@@ -1,0 +1,1 @@
+DELETE FROM Person p where p.email = "john@example.com"
