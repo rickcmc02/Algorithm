@@ -29,3 +29,22 @@ Constraints:
 
 1 <= n <= 231 - 1
 */
+
+function isHappy(n: number): boolean {
+  let tmpN = n;
+  let isHappy = false;
+  const happendNums = new Set();
+
+  while (!isHappy) {
+    const strN = tmpN.toString();
+    tmpN = 0;
+    for (const letterN of strN) {
+      const numN = +letterN;
+      if (numN) tmpN += +numN * +numN;
+    }
+    if (tmpN === 1) isHappy = true;
+    if (happendNums.has(tmpN)) break;
+    else happendNums.add(tmpN);
+  }
+  return isHappy;
+}
