@@ -37,3 +37,26 @@ Constraints:
 All the values of nums are unique.
 nums is sorted in ascending order.
 */
+
+function summaryRanges(nums: number[]): string[] {
+  const ranges: string[] = [];
+  if (nums.length === 0) return ranges;
+  if (nums.length === 1) return [`${nums[0]}`];
+  let startNum: number = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    const num = nums[i];
+    const prevNum = nums[i - 1];
+    if (num - prevNum > 1) {
+      if (startNum === prevNum) ranges.push(`${prevNum}`);
+      else ranges.push(`${startNum}->${prevNum}`);
+      startNum = num;
+    }
+    if (i === nums.length - 1) {
+      if (startNum === num) ranges.push(`${num}`);
+      else ranges.push(`${startNum}->${num}`);
+    }
+  }
+
+  return ranges;
+}
