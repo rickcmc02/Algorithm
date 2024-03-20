@@ -25,3 +25,13 @@ Constraints:
 
 -231 <= n <= 231 - 1
 */
+
+function isPowerOfTwo(n: number): boolean {
+  if (n < 1) return false;
+  let tempN = n;
+  while (tempN > 1) {
+    if (tempN % 2) return false;
+    else tempN /= 2;
+  }
+  return true;
+}
