@@ -27,7 +27,7 @@ function isPalindrome(head: ListNode | null): boolean {
   if (!head) return false;
   if (!head.next) return true;
 
-  const valList = [];
+  const valList: number[] = [];
   function gatherValues(ln: ListNode | null) {
     if (!ln) return;
     valList.push(ln.val);
@@ -41,4 +41,5 @@ function isPalindrome(head: ListNode | null): boolean {
     if (i >= revI) return true;
     if (valList[i] !== valList[revI]) return false;
   }
+  return false;
 }
