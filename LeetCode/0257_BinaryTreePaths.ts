@@ -21,3 +21,18 @@ Constraints:
 The number of nodes in the tree is in the range [1, 100].
 -100 <= Node.val <= 100
 */
+
+function binaryTreePaths(root: TreeNode | null): string[] {
+  const pathList: string[] = [];
+  if (!root) return pathList;
+
+  function pathBuilder(tn: TreeNode, accPath: string) {
+    const addedPath = accPath ? `${accPath}->${tn.val}` : `${tn.val}`;
+    if (tn.left) pathBuilder(tn.left, addedPath);
+    if (tn.right) pathBuilder(tn.right, addedPath);
+    if (!tn.left && !tn.right) pathList.push(addedPath);
+  }
+  pathBuilder(root, "");
+
+  return pathList;
+}
