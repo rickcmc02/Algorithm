@@ -21,3 +21,19 @@ Constraints:
 
 0 <= num <= 231 - 1
 */
+
+function addDigits(num: number): number {
+  let tmpNum = num;
+  while (tmpNum > 9) {
+    let newNum = 0;
+    let currNum = tmpNum;
+    while (currNum) {
+      const remainder = currNum % 10;
+      newNum += remainder;
+      currNum = currNum - remainder ? (currNum - remainder) / 10 : 0;
+    }
+    tmpNum = newNum;
+  }
+
+  return tmpNum;
+}
