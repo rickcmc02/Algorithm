@@ -26,3 +26,13 @@ Constraints:
 
 -231 <= n <= 231 - 1
 */
+
+function isUgly(n: number): boolean {
+    if (n < 1) return false;
+    let tmpN = n;
+    while (!(tmpN % 5)) tmpN /= 5;
+    while (!(tmpN % 3)) tmpN /= 3;
+    while (!(tmpN % 2)) tmpN /= 2;
+    if (tmpN === 1) return true;
+    else return false;
+};
