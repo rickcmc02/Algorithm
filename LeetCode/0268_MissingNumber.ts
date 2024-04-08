@@ -28,3 +28,17 @@ n == nums.length
 All the numbers of nums are unique.
 
 */
+
+function missingNumber(nums: number[]): number {
+  let maxNum = -1;
+  const numDict: { [key: number]: boolean } = {};
+  for (const num of nums) {
+    if (maxNum < num) maxNum = num;
+    numDict[num] = true;
+  }
+  for (let n = 0; n < maxNum + 1; n++) {
+    if (numDict[n] === undefined) return n;
+  }
+
+  return maxNum + 1;
+}
