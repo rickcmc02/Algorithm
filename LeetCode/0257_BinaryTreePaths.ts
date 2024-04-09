@@ -22,6 +22,12 @@ The number of nodes in the tree is in the range [1, 100].
 -100 <= Node.val <= 100
 */
 
+interface TreeNode {
+  val: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+}
+
 function binaryTreePaths(root: TreeNode | null): string[] {
   const pathList: string[] = [];
   if (!root) return pathList;
