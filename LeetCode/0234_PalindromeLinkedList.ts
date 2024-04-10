@@ -23,6 +23,11 @@ The number of nodes in the list is in the range [1, 105].
 0 <= Node.val <= 9
 */
 
+interface ListNode {
+  val: number;
+  next: ListNode | null;
+}
+
 function isPalindrome(head: ListNode | null): boolean {
   if (!head) return false;
   if (!head.next) return true;
