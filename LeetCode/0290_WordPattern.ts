@@ -32,18 +32,29 @@ All the words in s are separated by a single space.
 function wordPattern(pattern: string, s: string): boolean {
   const sList = s.split(" ");
   if (pattern.length !== sList.length) return false;
-  const matchedDict: { [key in string]: string } = {};
+  const pmm: Map<string, string> = new Map();
+  const smm: Map<string, string> = new Map();
   let isMatched = true;
   for (let i = 0; i < pattern.length; i++) {
     const pLetter = pattern[i];
-    const matchedLetter = matchedDict[pLetter];
-    if (matchedLetter) {
-      if (matchedLetter !== sList[i]) {
+    const sLetter = sList[i];
+
+    if (pmm.has(pLetter)) {
+      if (pmm.get(pLetter) !== sLetter) {
         isMatched = false;
         break;
       }
     } else {
-      matchedDict[pLetter] = sList[i];
+      pmm.set(pLetter, sLetter);
+    }
+
+    if (smm.has(sLetter)) {
+      if (smm.get(sLetter) !== pLetter) {
+        isMatched = false;
+        break;
+      }
+    } else {
+      smm.set(sLetter, pLetter);
     }
   }
 
