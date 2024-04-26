@@ -33,3 +33,12 @@ Constraints:
 1 <= n <= 231 - 1
 
 */
+
+// 1~3개의 돌을 제거할 수 있는데, 그 중 마지막 돌을 제거하는 사람이 이기는 게임
+// 최적으로 플레이하는데 이길 수 있는 경우의 수가 있어야 함
+// 검색으로 게임 방법 검색했다가.. 판도라의 상자 열어버림
+
+function canWinNim(n: number): boolean {
+  if (n % 4) return true;
+  else return false;
+}
