@@ -26,3 +26,19 @@ Constraints:
 
 1 <= bad <= n <= 231 - 1
 */
+
+var solution = function (isBadVersion: any) {
+  return function (n: number): number {
+    let cBadNum = n;
+    let cGoodNum = 0;
+    while (true) {
+      const sumNum = cGoodNum + cBadNum;
+      const isOdd = Boolean(sumNum % 2);
+      const halfNum = (sumNum + (isOdd ? 1 : 0)) / 2;
+      const isBad = isBadVersion(halfNum);
+      if (isBad) cBadNum = halfNum;
+      else cGoodNum = halfNum;
+      if (cBadNum - cGoodNum < 2) return cBadNum;
+    }
+  };
+};
