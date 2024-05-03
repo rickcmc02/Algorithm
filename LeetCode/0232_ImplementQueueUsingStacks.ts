@@ -36,3 +36,25 @@ Constraints:
 At most 100 calls will be made to push, pop, peek, and empty.
 All the calls to pop and peek are valid.
 */
+
+class MyQueue {
+  queue: number[] = [];
+
+  push(x: number): void {
+    this.queue.push(x);
+  }
+
+  pop(): number | null {
+    if (this.empty()) return null;
+    return this.queue.shift() || null;
+  }
+
+  peek(): number | null {
+    if (this.empty()) return null;
+    return this.queue[0];
+  }
+
+  empty(): boolean {
+    return !Boolean(this.queue.length);
+  }
+}
