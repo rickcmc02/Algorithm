@@ -30,7 +30,7 @@ Constraints:
 Only one valid answer exists.
 */
 
-const twoSum = function (nums, target) {
+const twoSum = (nums: number[], target: number) => {
   const numsLen = nums.length;
   let index = 0;
   let answer;
