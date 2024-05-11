@@ -30,20 +30,42 @@ Constraints:
 Only one valid answer exists.
 */
 
-const twoSum = (nums: number[], target: number) => {
-  const numsLen = nums.length;
-  let index = 0;
-  let answer;
-  for (const num of nums) {
+// trial 2 240511
+/*
+속도 개선
+for문 한바퀴만 돌고, diff에 해당하는 값이 이미 저장되어 있고, 그 값이 현재 인덱스와 합했을 때 target이 되면 바로 리턴
+diffIdx는 0일수도 있기 때문에, diffIdx + 1로 체크
+*/
+
+function twoSum(nums: number[], target: number): number[] {
+  const numIdxDict: { [key: number]: number } = {};
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i];
     const diff = target - num;
-    for (let i = index + 1; i < numsLen; i++) {
-      if (diff === nums[i]) {
-        answer = [index, i];
-        break;
-      }
-    }
-    if (answer) break;
-    index++;
+    const diffIdx = numIdxDict[diff];
+    if (diffIdx + 1) return [i, numIdxDict[diff]];
+    numIdxDict[num] = i;
   }
-  return answer;
-};
+
+  return [];
+}
+
+// trial 1
+
+// const twoSum = function(nums, target) {
+//   const numsLen = nums.length;
+//   let index = 0;
+//   let answer;
+//   for (const num of nums) {
+//       const diff = target - num;
+//       for (let i = index + 1; i < numsLen; i++) {
+//           if (diff === nums[i]) {
+//               answer = [index, i];
+//               break;
+//           }
+//       }
+//       if (answer) break;
+//       index++;
+//   }
+//   return answer;
+// };
