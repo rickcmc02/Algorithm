@@ -28,13 +28,21 @@ The number of nodes in each linked list is in the range [1, 100].
 It is guaranteed that the list represents a number that does not have leading zeros.
 */
 
-const addTwoNumbers = function (l1, l2) {
-  let sumVal = l1.val + l2.val;
+interface ListNode {
+  val: number;
+  next: ListNode | null;
+}
+
+function addTwoNumbers(
+  l1: ListNode | null,
+  l2: ListNode | null
+): ListNode | null {
+  let sumVal = (l1?.val || 0) + (l2?.val || 0);
   let decimalNum = sumVal > 9 ? 1 : 0;
   let lastDigit = decimalNum ? sumVal - 10 : sumVal;
   const numbers = [lastDigit];
-  let nextL1 = l1.next;
-  let nextL2 = l2.next;
+  let nextL1 = l1?.next;
+  let nextL2 = l2?.next;
 
   while (nextL1 || nextL2) {
     sumVal = decimalNum;
@@ -53,10 +61,10 @@ const addTwoNumbers = function (l1, l2) {
 
   if (decimalNum) numbers.push(decimalNum);
 
-  let answer = null;
+  let answer: ListNode | null = null;
   for (let i = numbers.length - 1; i > -1; i--) {
     answer = { val: numbers[i], next: answer };
   }
 
   return answer;
-};
+}
