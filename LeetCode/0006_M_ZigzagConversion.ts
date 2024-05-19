@@ -36,3 +36,21 @@ Constraints:
 s consists of English letters (lower-case and upper-case), ',' and '.'.
 1 <= numRows <= 1000
 */
+
+function convert(s: string, numRows: number): string {
+  let isUpward = false;
+  let lineNum = 0;
+  let zzStr = "";
+  const lineStrDict: { [key in number]: string } = { 0: "" };
+
+  for (let i = 0; i < s.length; i++) {
+    const originStr = lineStrDict[lineNum] || "";
+    lineStrDict[lineNum] = originStr + s[i];
+    if (lineNum === 0 || lineNum === numRows - 1) isUpward = !isUpward;
+    if (isUpward) lineNum++;
+    else lineNum--;
+  }
+
+  Object.values(lineStrDict).forEach((lineStr) => (zzStr += lineStr));
+  return zzStr;
+}
