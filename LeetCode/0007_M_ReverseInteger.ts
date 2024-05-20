@@ -23,3 +23,11 @@ Constraints:
 
 -231 <= x <= 231 - 1
 */
+
+function reverse(x: number): number {
+  const isMinus = Boolean(x < 0);
+  const strNum = isMinus ? -x + "" : x + "";
+  const revNum = +strNum.split("").reverse().join("");
+  if (revNum.toString(2).length > 31) return 0;
+  return isMinus ? -revNum : revNum;
+}
