@@ -44,34 +44,34 @@ s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
 It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 */
 
-const romanToInt = function (s) {
-  const originalData = {
-    I: 1,
-    V: 5,
-    X: 10,
-    L: 50,
-    C: 100,
-    D: 500,
-    M: 1000,
-  };
-  const romanPrefixData = {
-    I: "",
-    V: "I",
-    X: "I",
-    L: "X",
-    C: "X",
-    D: "C",
-    M: "C",
-  };
-  const exceptionalData = {
-    IV: originalData.V - originalData.I,
-    IX: originalData.X - originalData.I,
-    XL: originalData.L - originalData.X,
-    XC: originalData.C - originalData.X,
-    CD: originalData.D - originalData.C,
-    CM: originalData.M - originalData.C,
-  };
+const originalData = {
+  I: 1,
+  V: 5,
+  X: 10,
+  L: 50,
+  C: 100,
+  D: 500,
+  M: 1000,
+};
+const romanPrefixData = {
+  I: "",
+  V: "I",
+  X: "I",
+  L: "X",
+  C: "X",
+  D: "C",
+  M: "C",
+};
+const exceptionalData = {
+  IV: originalData.V - originalData.I,
+  IX: originalData.X - originalData.I,
+  XL: originalData.L - originalData.X,
+  XC: originalData.C - originalData.X,
+  CD: originalData.D - originalData.C,
+  CM: originalData.M - originalData.C,
+};
 
+function romanToInt(s: string): number {
   let answer = 0;
   let index = s.length;
   while (index > 0) {
@@ -79,7 +79,7 @@ const romanToInt = function (s) {
     const romanLetter = s[index];
     const romanPrefix = romanPrefixData[romanLetter];
     if (romanPrefix) {
-      if (index - 1 > 0 && s[index - 1] === romanPrefix) {
+      if (index - 1 >= 0 && s[index - 1] === romanPrefix) {
         index--;
         answer += exceptionalData[romanPrefix + romanLetter];
       } else {
@@ -91,4 +91,4 @@ const romanToInt = function (s) {
   }
 
   return answer;
-};
+}
