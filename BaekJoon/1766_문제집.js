@@ -5,6 +5,8 @@
 //   .split(" ")
 //   .map(Number);
 
+// 최소힙, 위상정렬을 이용해 푸는 문제
+
 const rawInput = `6 7
 5 6
 5 2
