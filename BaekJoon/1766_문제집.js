@@ -1,10 +1,3 @@
-// const input = require("fs")
-//   .readFileSync(process.platform === "linux" ? "/dev/stdin" : "./input.txt")
-//   .toString()
-//   .trim()
-//   .split(" ")
-//   .map(Number);
-
 // 최소힙, 위상정렬을 이용해 푸는 문제 - 위상정렬을 이용해야 하는 이유는 선행 문제가 여러개일 수 있기 때문
 
 const rawInput = `6 6
@@ -23,53 +16,102 @@ const input = rawInput
   .map((str) => str.split(" ").map(Number));
 
 const [N, M] = input[0];
-const visited = Array(N + 1).fill(0); // 방문 여부를 체크하기 위한 배열 (0: 방문하지 않음, 1: 방문함, 0번 인덱스는 사용하지 않음)
-const formerData = {};
+const degrees = Array(N + 1).fill(0); // 0번 인덱스는 사용하지 않음
+const edges = Array.from({ length: N + 1 }, () => []);
+const formerLatters = {}; // 후행 문제 저장
 
-for (let formerInfoIdx = 1; formerInfoIdx <= M; formerInfoIdx++) {
-  const [former, latter] = input[formerInfoIdx];
-  const formerList = formerData[latter];
-  if (formerList) formerData[latter] = formerList.concat(former);
-  else formerData[latter] = [former];
+for (let idx = 1; idx <= M; idx++) {
+  const [former, latter] = input[idx];
+  if (formerLatters[former]) formerLatters[former].push(latter);
+  else formerLatters[former] = [latter];
+  degrees[latter]++;
 }
 
-for (let i = 1; i <= N; i++) {
-  if (formerData[i]) formerData[i].sort((a, b) => a - b);
-}
+class MinHeap {
+  constructor() {
+    this.heap = [];
+  }
 
-const buildStr = (formerList, addedStr, idx) => {
-  if (idx === formerList.length) return addedStr;
+  size() {
+    return this.heap.length;
+  }
 
-  const former = formerList[idx];
-  const isVisited = visited[former];
-  if (formerData[former]) {
-    if (isVisited) return buildStr(formerData[former], addedStr, 0);
-    else {
-      visited[former] = 1;
-      return buildStr(formerData[former], former + " " + addedStr, 0);
+  push(val) {
+    this.heap.push(val);
+    this.bubbleUp();
+  }
+
+  bubbleUp() {
+    let lastIdx = this.heap.length - 1;
+    while (lastIdx > 0) {
+      const parentIdx = Math.floor((lastIdx - 1) / 2);
+      if (this.heap[lastIdx] >= this.heap[parentIdx]) break; // 최소힙이므로 부모노드가 더 작아야
+      [this.heap[lastIdx], this.heap[parentIdx]] = [
+        this.heap[parentIdx],
+        this.heap[lastIdx],
+      ];
+      lastIdx = parentIdx;
     }
   }
 
-  if (isVisited) return buildStr(formerList, addedStr, idx + 1);
-  else {
-    visited[former] = 1;
-    return buildStr(formerList, former + " " + addedStr, idx + 1);
+  pop() {
+    if (this.heap.length === 1) return this.heap.pop();
+    const result = this.heap[0];
+    this.heap[0] = this.heap.pop();
+    this.bubbleDown();
+    return result;
   }
-};
 
-let answer = "";
-for (let i = 1; i <= N; i++) {
-  if (visited[i]) continue;
+  bubbleDown() {
+    let parentIdx = 0;
+    const heapLen = this.heap.length;
 
-  let addedStr = "";
-  if (formerData[i]) {
-    addedStr += buildStr(formerData[i], i, 0);
-  } else {
-    addedStr += i;
+    while (parentIdx < heapLen) {
+      const leftChildIdx = parentIdx * 2 + 1;
+      const rightChildIdx = parentIdx * 2 + 2;
+      let minIdx = parentIdx;
+
+      if (
+        leftChildIdx < heapLen &&
+        this.heap[leftChildIdx] < this.heap[minIdx]
+      ) {
+        minIdx = leftChildIdx;
+      }
+      if (
+        rightChildIdx < heapLen &&
+        this.heap[rightChildIdx] < this.heap[minIdx]
+      ) {
+        minIdx = rightChildIdx;
+      }
+
+      if (minIdx === parentIdx) break;
+      [this.heap[parentIdx], this.heap[minIdx]] = [
+        this.heap[minIdx],
+        this.heap[parentIdx],
+      ];
+      parentIdx = minIdx;
+    }
   }
-  visited[i] = 1;
-  if (answer) answer += " " + addedStr;
-  else answer = addedStr;
 }
 
-console.log(answer);
+const heap = new MinHeap();
+
+for (let i = 1; i <= N; i++) {
+  if (degrees[i] === 0) heap.push(i);
+}
+
+let answer = "";
+while (heap.size() > 0) {
+  const curr = heap.pop();
+  answer += curr + " ";
+
+  const latterList = formerLatters[curr];
+  if (latterList) {
+    for (const latter of latterList) {
+      degrees[latter]--;
+      if (degrees[latter] === 0) heap.push(latter);
+    }
+  }
+}
+
+console.log(answer.trim());
