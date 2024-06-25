@@ -20,11 +20,12 @@ const degrees = Array(N + 1).fill(0); // 0번 인덱스는 사용하지 않음
 const edges = Array.from({ length: N + 1 }, () => []);
 const formerLatters = {}; // 후행 문제 저장
 
+// 후행 문제 저장소에 후행 문제 번호를 키로 하여 value에 선행 문제 리스트를 저장
 for (let idx = 1; idx <= M; idx++) {
   const [former, latter] = input[idx];
   if (formerLatters[former]) formerLatters[former].push(latter);
   else formerLatters[former] = [latter];
-  degrees[latter]++;
+  degrees[latter]++; // 후행 문제 index에 선행 문제 degree 저장. 선행 문제가 많을수록 수가 높아짐
 }
 
 class MinHeap {
@@ -95,7 +96,7 @@ class MinHeap {
 }
 
 const heap = new MinHeap();
-
+// 선행 문제가 없는 (degree가 0인) 문제들 heap 에 먼저 추가
 for (let i = 1; i <= N; i++) {
   if (degrees[i] === 0) heap.push(i);
 }
