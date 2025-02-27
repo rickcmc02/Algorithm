@@ -30,3 +30,24 @@ Constraints:
 1 <= nums[i] <= 109
 1 <= k <= 109
 */
+
+function maxOperations(nums: number[], k: number): number {
+  const diffDict: {[key in string]: number} = {};
+  let numPair = 0;
+
+  for (const num of nums) {
+      if (num >= k) continue;
+
+      const diff = k - num;
+      if (diffDict[num]) {
+          diffDict[num]--;
+          numPair++;
+      } else {
+          // diffDict[num]이 없거나 value가 0
+          if (diffDict[diff]) diffDict[diff]++;
+          else diffDict[diff] = 1;
+      }
+  };
+
+  return numPair;
+};
