@@ -37,7 +37,23 @@ The operation above can be performed on s.
 
 */
 
-function removeStars(s: string): string {
+// Second trial
+
+function removeStars2(s: string): string {
+  const charStack: string[] = [];
+
+  for (const char of s) {
+      if (char === "*") charStack.pop();
+      else charStack.push(char);
+  }
+
+  return charStack.join("");
+};
+
+
+// First trial
+
+function removeStars1(s: string): string {
   let starPoint = 0; // 왼쪽 문자 지울 갯수, * 만날 때마다 증가
   let eraseIdxList: number[] = []; // 지나칠 idx 저장
   let eraseIdxPointer = 0; // 지나칠 idx 확인 최신화
