@@ -33,3 +33,37 @@ asteroids[i] != 0
 
 
 */
+
+function asteroidCollision(asteroids: number[]): number[] {
+  const remainAst: number[] = [];
+
+  asteroids.forEach((ast) => {
+      let lastAst = remainAst.at(-1);
+      if (!lastAst || ast > 0 || lastAst < 0) { // 마지막 ast 없거나(빈 array)
+          remainAst.push(ast);
+          return;
+      }
+
+      let isColliding = true;
+      while (isColliding) {            
+          if (lastAst && lastAst > 0) {
+              if (ast + lastAst > 0) {
+                  isColliding = false;
+              } else if (ast + lastAst < 0) {
+                  remainAst.pop();
+                  lastAst = remainAst.at(-1);
+              } else { // 같은 값이어서 동시 소멸
+                  remainAst.pop();
+                  lastAst = remainAst.at(-1);
+                  isColliding = false;
+              }
+          } else { // 마지막 ast 없거나 음수면 충돌 일어나지 않음
+              remainAst.push(ast);
+              isColliding = false;
+          }
+
+      }
+  })
+  
+  return remainAst;
+};
