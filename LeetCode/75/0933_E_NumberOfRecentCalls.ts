@@ -32,3 +32,22 @@ Each test case will call ping with strictly increasing values of t.
 At most 104 calls will be made to ping.
 
 */
+
+class RecentCounter {
+  countList: number[] = [];
+
+  constructor() {
+  }
+
+  // 근 3초 내 request 수 반환
+  ping(t: number): number {
+      this.countList.push(t);
+      return this.countList.filter(count => (count - (t - 3000)) >= 0).length;
+  }
+}
+
+/**
+* Your RecentCounter object will be instantiated and called as such:
+* var obj = new RecentCounter()
+* var param_1 = obj.ping(t)
+*/
