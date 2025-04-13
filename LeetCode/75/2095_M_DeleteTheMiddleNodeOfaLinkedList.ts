@@ -40,3 +40,43 @@ The number of nodes in the list is in the range [1, 105].
 1 <= Node.val <= 105
 
 */
+
+class ListNode {
+  val: number;
+  next: ListNode | null;
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+  }
+}
+
+function deleteMiddle(head: ListNode | null): ListNode | null {
+  if (!head?.next) return null; // 노드가 하나인 경우
+  if (!head.next.next) {
+    // 노드가 두개인 경우
+    head.next = null;
+    return head;
+  }
+  if (!head.next.next.next) {
+    // 노드가 세개인 경우
+    head.next = head.next.next;
+    return head;
+  }
+
+  let nodeLen = 4;
+  let currNode = head.next.next.next;
+
+  while (currNode.next) {
+    currNode = currNode.next;
+    nodeLen++;
+  }
+
+  const halfPos = Math.floor(nodeLen / 2);
+  currNode = head;
+  for (let i = 0; i < halfPos - 1; i++) {
+    currNode = currNode.next as ListNode;
+    if (i === halfPos - 2) currNode.next = currNode.next?.next || null;
+  }
+
+  return head;
+}
