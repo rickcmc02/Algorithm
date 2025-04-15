@@ -27,3 +27,42 @@ The number of nodes in the linked list is in the range [0, 104].
 -106 <= Node.val <= 106
 
 */
+
+class ListNode {
+    val: number
+    next: ListNode | null
+    constructor(val?: number, next?: ListNode | null) {
+        this.val = (val===undefined ? 0 : val)
+        this.next = (next===undefined ? null : next)
+    }
+}
+
+function oddEvenList(head: ListNode | null): ListNode | null {
+  if (!head || !head.next) return head;
+
+  const oddLN: ListNode = new ListNode(head.val);
+  let oddCurr = oddLN; // nodeNum >= 1
+  const evenLN: ListNode = new ListNode(head.next.val);
+  let evenCurr = evenLN; // nodeNum >= 2
+
+  let currLN: ListNode | null = head.next;
+  let nodeNum = 2;
+
+  while (currLN.next) {
+      nodeNum++;
+
+      if (nodeNum % 2) {
+          oddCurr.next = currLN.next;
+          oddCurr = oddCurr.next;
+      } else {
+          evenCurr.next = currLN.next;
+          evenCurr = evenCurr.next;
+      }
+      currLN = currLN.next;
+  }
+
+  if (nodeNum % 2) evenCurr.next = null; // 홀수 길이면 ListNode 마지막 링크 제거
+  oddCurr.next = evenLN;
+
+  return oddLN;
+};
