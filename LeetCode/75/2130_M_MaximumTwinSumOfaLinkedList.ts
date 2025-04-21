@@ -42,3 +42,29 @@ The number of nodes in the list is an even integer in the range [2, 105].
 1 <= Node.val <= 105
 
 */
+
+interface ListNode {
+  val: number;
+  next: ListNode | null;
+}
+
+function pairSum(head: ListNode | null): number {
+  // LN의 크기 n은 짝수
+  if (!head) return 0;
+
+  const numList: number[] = [];
+  let currLN: ListNode | null = head;
+  let lenLN = 0;
+  let maxSum = 0;
+  while (currLN?.val) {
+      numList.push(currLN.val);
+      currLN = currLN.next;
+  }
+  lenLN = numList.length;
+
+  for (let i = 0; i < lenLN / 2; i++) {
+      const sum = numList[i] + numList[lenLN - 1 - i];
+      if (sum > maxSum) maxSum = sum;
+  }
+  return maxSum;
+};
