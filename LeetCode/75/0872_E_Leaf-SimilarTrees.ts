@@ -27,4 +27,47 @@ Constraints:
 
 The number of nodes in each tree will be in the range [1, 200].
 Both of the given trees will have values in the range [0, 200].
+
 */
+
+class TreeNode {
+    val: number
+    left: TreeNode | null
+    right: TreeNode | null
+    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+        this.val = (val===undefined ? 0 : val)
+        this.left = (left===undefined ? null : left)
+        this.right = (right===undefined ? null : right)
+    }
+}
+
+function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
+  const leafNums1 = [];
+  const leafNums2 = [];
+
+  const checkLeafNumber = (root: TreeNode | null, num: 1 | 2): void => {
+
+      if (root.left || root.right) {
+          if (root.left) checkLeafNumber(root.left, num);
+          if (root.right) checkLeafNumber(root.right, num);
+      } else {
+          if (num === 1) leafNums1.push(root.val)
+          if (num === 2) leafNums2.push(root.val)
+      }
+  }
+
+  checkLeafNumber(root1, 1)
+  checkLeafNumber(root2, 2)
+
+  if (leafNums1.length !== leafNums2.length) return false;
+
+  let isSimilar = true
+  leafNums1.forEach((num, idx) => {
+      if (num !== leafNums2[idx]) {
+          isSimilar = false;
+          return;
+      }
+  })
+
+  return isSimilar;
+};
