@@ -42,12 +42,12 @@ class TreeNode {
 }
 
 function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
-  const leafNums1 = [];
-  const leafNums2 = [];
+  const leafNums1: number[] = [];
+  const leafNums2: number[] = [];
 
   const checkLeafNumber = (root: TreeNode | null, num: 1 | 2): void => {
 
-      if (root.left || root.right) {
+      if (root?.left || root?.right) {
           if (root.left) checkLeafNumber(root.left, num);
           if (root.right) checkLeafNumber(root.right, num);
       } else {
