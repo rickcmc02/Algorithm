@@ -37,3 +37,38 @@ The number of nodes in the tree is in the range [1, 5 * 104].
 1 <= Node.val <= 100
 
 */
+
+
+class TreeNode {
+    val: number
+    left: TreeNode | null
+    right: TreeNode | null
+    constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+        this.val = (val===undefined ? 0 : val)
+        this.left = (left===undefined ? null : left)
+        this.right = (right===undefined ? null : right)
+    }
+}
+
+
+function longestZigZag(root: TreeNode | null): number {
+  let zzPoint = 0;
+  
+  const checkZigZag = (tn: TreeNode, pastDirection: "left" | "right", point: number) => {
+      if (tn.left) {
+          if (pastDirection === "left") checkZigZag(tn.left, "left", 1);
+          if (pastDirection === "right") checkZigZag(tn.left, "left", point + 1);
+      }
+      if (tn.right) {
+          if (pastDirection === "right") checkZigZag(tn.right, "right", 1);
+          if (pastDirection === "left") checkZigZag(tn.right, "right", point + 1);
+      }
+
+      if (point > zzPoint) zzPoint = point;
+  }
+
+  if (root?.left) checkZigZag(root.left, "left", 1);
+  if (root?.right) checkZigZag(root.right, "right", 1);
+
+  return zzPoint;
+};
