@@ -44,3 +44,20 @@ The number of nodes in the tree is in the range [0, 100].
 -100 <= Node.val <= 100
 
 */
+
+// 후위순회 해서 숫자 채우기
+
+function rightSideView(root: TreeNode | null): number[] {
+  const floorNumData: {[key in number]: number} = {};
+
+  const searchNodes = (tn: TreeNode | null, floor: number): void => {
+      if (!tn || (!tn.val && tn.val !== 0)) return
+      if (!floorNumData[floor] && floorNumData[floor] !== 0) floorNumData[floor] = tn.val;
+      searchNodes(tn.right, floor + 1);
+      searchNodes(tn.left, floor + 1);
+  }
+
+  searchNodes(root, 1);
+
+  return Object.values(floorNumData)
+};
