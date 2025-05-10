@@ -26,3 +26,31 @@ Constraints:
 The number of nodes in the tree is in the range [1, 104].
 -105 <= Node.val <= 105
 */
+
+function maxLevelSum(root: TreeNode | null): number {
+  if (!root) return 0;
+
+  const levelSumData: {[key in number]: number} = {}; // level별 합계액 저장
+  
+  const searchNodes = (tn: TreeNode, level: number): void => {
+      if (levelSumData[level]) levelSumData[level] += tn.val;
+      else levelSumData[level] = tn.val;
+
+      if (tn.left) searchNodes(tn.left, level + 1);
+      if (tn.right) searchNodes(tn.right, level + 1);
+  }
+
+  searchNodes(root, 1);
+
+  const sumValues = Object.values(levelSumData);
+  let [maxIdx, maxVal] = [-1, -Infinity]; // 전체 node val이 음수일수도 있음
+  for (let i = 0; i < sumValues.length; i++) {
+      const sumVal = sumValues[i];
+      if (sumVal > maxVal) {
+          maxVal = sumVal;
+          maxIdx = i;
+      }
+  }
+
+  return maxIdx + 1;
+};
