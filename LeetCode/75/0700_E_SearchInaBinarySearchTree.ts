@@ -27,12 +27,18 @@ root is a binary search tree.
 
 */
 
-// Answer 1
+// Answer 2
 
 function searchBST(root: TreeNode | null, val: number): TreeNode | null {
+  let isFound = false;
+
   const findEqualVal = (tn: TreeNode | null) => {
       if (!tn) return null;
-      if (tn.val === val) return tn;
+      if (isFound) return null;
+      if (tn.val === val) {
+          isFound = true;
+          return tn;
+      }
       const [tnLeft, tnRight] = [findEqualVal(tn.left), findEqualVal(tn.right)];
       if (tnLeft) return tnLeft;
       if (tnRight) return tnRight;
@@ -41,3 +47,18 @@ function searchBST(root: TreeNode | null, val: number): TreeNode | null {
 
   return findEqualVal(root);
 };
+
+// Answer 1
+
+// function searchBST(root: TreeNode | null, val: number): TreeNode | null {
+//   const findEqualVal = (tn: TreeNode | null) => {
+//       if (!tn) return null;
+//       if (tn.val === val) return tn;
+//       const [tnLeft, tnRight] = [findEqualVal(tn.left), findEqualVal(tn.right)];
+//       if (tnLeft) return tnLeft;
+//       if (tnRight) return tnRight;
+//       return null;
+//   }
+
+//   return findEqualVal(root);
+// };
