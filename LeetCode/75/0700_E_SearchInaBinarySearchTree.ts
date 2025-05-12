@@ -26,3 +26,18 @@ root is a binary search tree.
 1 <= val <= 107
 
 */
+
+// Answer 1
+
+function searchBST(root: TreeNode | null, val: number): TreeNode | null {
+  const findEqualVal = (tn: TreeNode | null) => {
+      if (!tn) return null;
+      if (tn.val === val) return tn;
+      const [tnLeft, tnRight] = [findEqualVal(tn.left), findEqualVal(tn.right)];
+      if (tnLeft) return tnLeft;
+      if (tnRight) return tnRight;
+      return null;
+  }
+
+  return findEqualVal(root);
+};
