@@ -34,3 +34,18 @@ n == rooms.length
 All the values of rooms[i] are unique.
 
 */
+
+function canVisitAllRooms(rooms: number[][]): boolean {
+  const statusList = new Array(rooms.length).fill(false);
+
+  const changeStatus = (roomKey: number) => {
+      if (statusList[roomKey]) return; // 방문한 적 있는 방이면 return
+      statusList[roomKey] = true;
+      const keys = rooms[roomKey];
+      keys.forEach(key => changeStatus(key));
+  }
+
+  changeStatus(0);
+  // 모든 방을 방문했는지 검증
+  return statusList.every(status => status === true);
+};
