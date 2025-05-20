@@ -38,3 +38,43 @@ connections[i].length == 2
 ai != bi
 
 */
+
+// gpt의 도움을 받음
+
+function minReorder(n: number, connections: number[][]): number {
+  const graph = new Map<number, number[]>(); // 양방향 연결
+  const directed = new Map<number, Set<number>>(); // 원래 방향 저장
+
+  for (let i = 0; i < n; i++) {
+      graph.set(i, []);
+      directed.set(i, new Set());
+  }
+
+  for (const [from, to] of connections) {
+      graph.get(from)!.push(to);
+      graph.get(to)!.push(from);
+      directed.get(from)!.add(to);
+  }
+
+  const visited = new Array(n).fill(false);
+  let changed = 0;
+
+  const dfs = (node) => {
+      visited[node] = true;
+
+      const neighbors = graph.get(node)!;
+      for (const neighbor of neighbors) {
+          if (!visited[neighbor]) {
+              if (directed.get(node)!.has(neighbor)) {
+                  changed++;
+              }
+
+              dfs(neighbor);
+          }
+      }
+  }
+
+  dfs(0);
+
+  return changed;
+};
