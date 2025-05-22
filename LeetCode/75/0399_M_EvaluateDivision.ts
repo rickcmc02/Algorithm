@@ -45,3 +45,48 @@ Ai, Bi, Cj, Dj consist of lower case English letters and digits.
 
 */
 
+// Each Ai or Bi is a string that represents a single variable. > "bc"와 "cb"는 다른가?
+// !!!주의 array 동일성 비교 X
+// a / b, b / c 의 관계를 통해 a / c 유추 가능
+
+function calcEquation(equations: string[][], values: number[], queries: string[][]): number[] {
+  const graph: Map<string, Map<string, number>> = new Map();  
+
+  let idx = 0;
+  for (const [numerator, denominator] of equations) {
+      const value = values[idx];
+      
+      if (!graph.has(numerator)) graph.set(numerator, new Map());
+      if (!graph.has(denominator)) graph.set(denominator, new Map());
+
+      graph.get(numerator)!.set(denominator, value);
+      graph.get(denominator)!.set(numerator, 1 / value);
+
+      idx++;
+  }
+  
+  // dfs 함수 - gpt helped
+  const dfs = (start: string, end: string, visited: Set<string>) => {
+      if (!graph.has(start) || !graph.has(end)) return -1.0;
+      if (start === end) return 1.0;
+
+      visited.add(start);
+
+      for (const [neighbor, weight] of graph.get(start)!) {
+          if (visited.has(neighbor)) continue;
+          const output = dfs(neighbor, end, visited);
+          if (output === -1.0) continue;
+          return output * weight;
+      }
+
+      return -1.0;
+  }
+
+  const outputs: number[] = [];
+  for (const [start, end] of queries) {
+      const visited = new Set<string>();
+      outputs.push(dfs(start, end, visited));
+  }
+
+  return outputs;
+};
