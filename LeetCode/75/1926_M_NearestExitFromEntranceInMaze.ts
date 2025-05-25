@@ -49,3 +49,41 @@ entrance.length == 2
 entrance will always be an empty cell.
 
 */
+
+/// ast
+type Coord = [number, number];
+const DIRECTIONS: Coord[] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
+function nearestExit(maze: string[][], entrance: number[]): number {
+    const [iy, ix] = entrance;
+    const [m, n] = [maze.length, maze[0].length]; // m: y방향, n: x방향
+    const visited = Array.from({ length: m }, () => Array(n).fill(false));
+
+    const isValid = (y: number, x: number,): boolean =>
+        y >= 0 && y < m && x >= 0 && x < n && maze[y][x] === "." && !visited[y][x];
+    
+    const isExit = (y: number, x: number): boolean =>
+        !(y === iy && x === ix) && (y === 0 || y === m - 1 || x === 0 || x === n - 1);
+
+    // [x, y], steps
+    const queue: [number, number, number][] = [[iy, ix, 0]];
+    visited[iy][ix] = true;
+        
+
+    while (queue.length > 0) {
+        const [y, x, steps] = queue.shift()!;
+
+        for (const [dy, dx] of DIRECTIONS) {
+            const [ny, nx] = [y + dy, x + dx];
+
+            if (isValid(ny, nx)) {
+                if (isExit(ny, nx)) return steps + 1; // 탈출 위해 한 스텝 더 필요
+
+                visited[ny][nx] = true;
+                queue.push([ny, nx, steps + 1]);
+            }
+        }
+    }
+
+    return -1;
+};
