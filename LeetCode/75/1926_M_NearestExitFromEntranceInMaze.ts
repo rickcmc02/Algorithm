@@ -52,9 +52,10 @@ entrance will always be an empty cell.
 
 /// ast
 type Coord = [number, number];
-const DIRECTIONS: Coord[] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 
 function nearestExit(maze: string[][], entrance: number[]): number {
+    const DIRECTIONS: Coord[] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
     const [iy, ix] = entrance;
     const [m, n] = [maze.length, maze[0].length]; // m: y방향, n: x방향
     const visited = Array.from({ length: m }, () => Array(n).fill(false));
