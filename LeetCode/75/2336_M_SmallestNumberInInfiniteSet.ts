@@ -34,3 +34,22 @@ Constraints:
 1 <= num <= 1000
 At most 1000 calls will be made in total to popSmallest and addBack.
 */
+
+class SmallestInfiniteSet {
+  poppedSet = new Set<number>();
+
+  constructor() {}
+
+  popSmallest(): number | undefined {
+      for (let n = 1; n < Infinity; n++) {
+          if (!this.poppedSet.has(n)) {
+              this.poppedSet.add(n);
+              return n;
+          }
+      }
+  }
+
+  addBack(num: number): void {
+      this.poppedSet.delete(num);
+  }
+}
