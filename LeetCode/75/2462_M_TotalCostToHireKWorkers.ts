@@ -39,3 +39,104 @@ Constraints:
 1 <= costs[i] <= 105
 1 <= k, candidates <= costs.length
 */
+
+// ast
+
+class MinHeap {
+  heap: number[] = [];
+
+  size(): number {
+      return this.heap.length;
+  }
+
+  swap(idx1: number, idx2: number) {
+      [this.heap[idx1], this.heap[idx2]] = [this.heap[idx2], this.heap[idx1]];
+  }
+
+  add(cost: number) {
+      this.heap.push(cost);
+      this.bubbleUp();
+  }
+
+  bubbleUp() {
+      let idx = this.size() - 1;
+      let parentIdx = Math.floor((idx - 1) / 2);
+
+      while (!isNaN(this.heap[parentIdx]) && this.heap[idx] < this.heap[parentIdx]) {
+          this.swap(idx, parentIdx);
+          idx = parentIdx;
+          parentIdx = Math.floor((idx - 1) / 2);
+      }
+  }
+
+  bubbleDown() {
+      let idx = 0;
+      const len = this.size();
+
+      while (true) {
+          let largest = idx;
+          const [left, right] = [2 * idx + 1, 2 * idx + 2];
+
+          if (left < len && this.heap[left] < this.heap[largest]) {
+              largest = left;
+          }
+          if (right < len && this.heap[right] < this.heap[largest]) {
+              largest = right;
+          }
+
+          if (largest === idx) break;
+          this.swap(idx, largest);
+          idx = largest;
+      }
+  }
+
+  poll() {
+      if (this.size() === 0) return -1;
+      if (this.size() === 1) return this.heap.pop()!;
+      const min = this.heap[0];
+      this.heap[0] = this.heap.pop()!; // 루트에 마지막 값 삽입
+      this.bubbleDown(); // 루트 자식 노드 비교하면서 재정렬
+      return min;
+  }
+
+  peek(): number {
+      return this.heap[0];
+  }
+}
+
+function totalCost(costs: number[], k: number, candidates: number): number {
+  const n = costs.length;
+  let total = 0;
+  let left = 0;
+  let right = n - 1;
+
+  const leftHeap = new MinHeap();
+  const rightHeap = new MinHeap();
+
+  // 초기 후보군 채우기
+  while (left < candidates && left <= right) {
+      leftHeap.add(costs[left++]);
+  }
+  while (right >= n - candidates && left <= right) {
+      rightHeap.add(costs[right--]);
+  }
+
+  for (let i = 0; i < k; i++) {
+      const leftMin = leftHeap.size() ? leftHeap.peek() : Infinity;
+      const rightMin = rightHeap.size() ? rightHeap.peek() : Infinity;
+
+      if (leftMin <= rightMin) {
+          total += leftHeap.poll();
+          if (left <= right) {
+              leftHeap.add(costs[left++]);
+          }
+      } else {
+          total += rightHeap.poll();
+          if (left <= right) {
+              rightHeap.add(costs[right--]);
+          }
+      }
+  }
+
+  return total;
+}
