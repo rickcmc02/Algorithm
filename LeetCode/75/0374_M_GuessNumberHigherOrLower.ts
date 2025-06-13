@@ -33,3 +33,22 @@ Constraints:
 1 <= n <= 231 - 1
 1 <= pick <= n
 */
+
+function guessNumber(n: number): number {
+  let [a, b] = [1, n];
+  let center = Math.floor((a + b) / 2);
+
+  while (true) {
+      const res = guess(center);
+      if (res === 0) return center;
+      else if (res === 1) {
+          a = center;
+          center = Math.ceil((a + b) / 2); // center는 이미 검증되었으니 올림
+      } else if (res === -1) {
+          b = center;
+          center = Math.floor((a + b) / 2); // center는 이미 검증되었으니 내림
+      }
+  }
+
+  return 1;
+};
