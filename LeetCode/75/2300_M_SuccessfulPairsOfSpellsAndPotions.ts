@@ -35,3 +35,37 @@ m == potions.length
 1 <= spells[i], potions[i] <= 105
 1 <= success <= 1010
 */
+
+// ast
+
+function successfulPairs(spells: number[], potions: number[], success: number): number[] {
+  potions.sort((a, b) => a - b) // potions 오름차순 직접 정렬 (미정렬 다시 쓸 일 없음)
+  const results: number[] = [];
+  const pLen = potions.length;
+  const prevData: {[key in number]: number} = []; // 이전에 구했던 값
+
+  for (const spell of spells) {
+      let [left, right] = [0, pLen];
+
+      if (prevData[spell]) {
+          results.push(prevData[spell]); // 구했던 값 바로 반환
+          continue;
+      }
+      const cutline = success / spell;
+      while (left < right) {
+          const mid = Math.floor((left + right) / 2);
+          if (potions[mid] >= cutline) {
+              right = mid;
+          } else {
+              left = mid + 1; // mid idx는 체크되었음
+          }
+      }
+
+      // left는 조건을 만족하는 첫 potion의 인덱스
+      const diff = pLen - left;
+      results.push(diff);
+      prevData[spell] = diff;
+  }
+
+  return results;
+};
