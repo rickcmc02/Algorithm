@@ -27,3 +27,31 @@ Constraints:
 -231 <= nums[i] <= 231 - 1
 nums[i] != nums[i + 1] for all valid i.
 */
+
+function findPeakElement(nums: number[]): number {
+  const nLen = nums.length;
+  let [left, right] = [0, nLen - 1];
+
+  // 길이 정한 김에 체크
+  if (nLen === 1) return 0;
+
+  // left, right index 정한 김에 체크
+  if (nums[left] > nums[left + 1]) return left;
+  if (nums[right] > nums[right - 1]) return right;
+
+  const findPeak = (l: number, r: number): number | null => {
+      let isEndL = l === 0;
+      let isEndR = r === nLen - 1;
+
+      if ((isEndL || nums[l - 1] < nums[l]) && nums[l + 1] < nums[l]) return l;
+      if ((isEndR || nums[r + 1] < nums[r]) && nums[r - 1] < nums[r]) return r;
+
+      if (l === r) return null;
+
+      const mid = Math.floor((l + r) / 2);
+      if (mid === l) return findPeak(mid, r - 1); // floor를 하기 때문에 같아질 수 있음
+      else return findPeak(l + 1, mid) || findPeak(mid, r - 1);
+  }
+
+  return findPeak(left, right)!;
+};
