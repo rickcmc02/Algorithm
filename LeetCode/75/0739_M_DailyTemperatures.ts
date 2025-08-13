@@ -22,3 +22,29 @@ Constraints:
 1 <= temperatures.length <= 105
 30 <= temperatures[i] <= 100
 */
+
+function dailyTemperatures(temperatures: number[]): number[] {
+    const tempsLen = temperatures.length;
+    const answer = new Array(tempsLen).fill(0);
+    const stack: [number, number][] = [[temperatures[0], 0]]; // [온도, 인덱스][]
+
+    for (let i = 1; i < tempsLen; i++) {
+        const temp = temperatures[i];
+
+        let stackLen = stack.length;
+        let topStack = stackLen ? stack[stackLen - 1] : null;
+        if (topStack) { // stack 최상단부터 온도비교 하면서 깎기
+            while (topStack && topStack[0] < temp) {
+                answer[topStack[1]] = i - topStack[1];
+                stack.pop();
+                stackLen -= 1;
+                if (stackLen) topStack = stack[stackLen - 1];
+                else topStack = null;
+            }
+        }
+
+        stack.push([temp, i]);
+    }
+
+    return answer;
+};
