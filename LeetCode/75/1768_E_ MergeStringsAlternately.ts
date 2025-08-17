@@ -37,6 +37,42 @@ Constraints:
 word1 and word2 consist of lowercase English letters.
 */
 
+// answer 2
+function mergeAlternately(word1: string, word2: string): string {
+    const [w1Len, w2Len] = [word1.length, word2.length];
+    let idx = 0;
+    let [w1, w2]: [string, string] = [word1[idx], word2[idx]];
+    let merged = "";
+
+    while (w1 && w2) {
+        merged += (w1 + w2);
+        idx++;
+
+        if (idx < w1Len) {
+            w1 = word1[idx];
+
+            if (idx < w2Len) {
+                w2 = word2[idx];
+            } else {
+                w2 = "";
+                merged += word1.slice(idx);
+            }
+        } else {
+            if (idx < w2Len) {
+                w1 = "";
+                merged += word2.slice(idx);
+            } else {
+                w1 = "";
+                w2 = "";
+            }
+        }
+    }
+
+    return merged;
+};
+
+// answer 1
+/*
 function mergeAlternately(word1: string, word2: string): string {
   let answer = "";
 
@@ -59,3 +95,4 @@ function mergeAlternately(word1: string, word2: string): string {
 
   return answer;
 }
+*/
