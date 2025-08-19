@@ -25,6 +25,31 @@ Constraints:
 str1 and str2 consist of English uppercase letters.
 */
 
+// answser 2
+
+function gcdOfStrings(str1: string, str2: string): string {
+    const [len1, len2] = [str1.length, str2.length];
+
+    if (len1 === len2) { // 길이가 같다면 완전히 동일한 문자열의 구성이어야 문자 최대공약수를 구할 수 있음
+        if (str1 === str2) return str1;
+        else return "";
+    }
+
+    const shorter = len1 < len2 ? len1 : len2;
+    const longer = len1 > len2 ? len1 : len2;
+
+    // 길이 최대공약수 사용 (최대공약수 공식 외워둬)
+    const gcd = (a, b): number => b === 0 ? a : gcd(b, a % b);
+    const gcdLen = gcd(longer, shorter);
+    const cds = str1.slice(0, gcdLen); // str1 에서 최대공약수만큼 잘라내면 cds (common divisor of strings) 라고 가정 - 아닐 경우에도 slicer로 활용하여 검증하므로 괜찮음
+    const [splited1, splited2] = [str1.split(cds), str2.split(cds)];
+
+    if (splited1.every(splt => splt === "") && splited2.every(splt => splt === "")) return cds;
+    else return "";
+};
+
+// answer 1
+/*
 function gcdOfStrings(str1: string, str2: string): string {
   const [len1, len2] = [str1.length, str2.length];
   if (len1 === len2) {
@@ -54,3 +79,4 @@ function gcdOfStrings(str1: string, str2: string): string {
 
   return "";
 }
+*/
