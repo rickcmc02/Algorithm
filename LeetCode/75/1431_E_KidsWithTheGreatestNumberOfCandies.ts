@@ -37,7 +37,16 @@ n == candies.length
 1 <= extraCandies <= 50
 */
 
+// answer 2
+function kidsWithCandies(candies: number[], extraCandies: number): boolean[] {
+    const maxMinusExtra = Math.max(...candies) - extraCandies;
+    return candies.map((numCandy) => numCandy >= maxMinusExtra);
+};
+
+// answer 1
+/*
 function kidsWithCandies(candies: number[], extraCandies: number): boolean[] {
   const mmex = Math.max(...candies) - extraCandies; // max minus extra candies
   return candies.map((candy) => candy >= mmex);
 }
+*/
