@@ -31,6 +31,18 @@ s consist of printable ASCII characters.
 
 const VOWELS = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
 
+// answer 2
+
+function reverseVowels(s: string): string {
+  const sList = s.split("");
+  const idxVowelData: { [key: number]: string } = {};
+
+  for (let i = 0; i < sList.length; i++) {}
+  return "";
+}
+
+// answer 1
+/*
 function reverseVowels(s: string): string {
   const vowelPosition: number[] = [];
   const vowelList: string[] = [];
@@ -51,3 +63,4 @@ function reverseVowels(s: string): string {
 
   return sSplit.join("");
 }
+*/
