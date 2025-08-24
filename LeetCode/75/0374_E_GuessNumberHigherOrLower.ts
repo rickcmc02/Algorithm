@@ -34,6 +34,11 @@ Constraints:
 1 <= pick <= n
 */
 
+// guess -> pre-defined API (오류 방지 위해 임시로 정의)
+const guess = (num: number): number => {
+    return 0;
+};
+
 function guessNumber(n: number): number {
   let [a, b] = [1, n];
   let center = Math.floor((a + b) / 2);
