@@ -32,6 +32,8 @@ s contains English letters (upper-case and lower-case), digits, and spaces ' '.
 There is at least one word in s.
 */
 
+// answer 1
+
 function reverseWords(s: string): string {
   const wordList = s.trim().split(" ");
   const wListLen = wordList.length;
