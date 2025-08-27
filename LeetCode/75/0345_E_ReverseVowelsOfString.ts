@@ -37,7 +37,11 @@ function reverseVowels(s: string): string {
   const sList = s.split("");
   const idxVowelData: { [key: number]: string } = {};
 
-  for (let i = 0; i < sList.length; i++) {}
+  for (let i = 0; i < sList.length; i++) {
+    const char = sList[i];
+    if (VOWELS.includes(char)) idxVowelData[i] = char;
+  }
+
   return "";
 }
 
