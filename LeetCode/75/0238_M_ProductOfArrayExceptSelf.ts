@@ -25,7 +25,32 @@ The input is generated such that answer[i] is guaranteed to fit in a 32-bit inte
 
 */
 
+// answer 3 (answer 1 + answer 2)
+function productExceptSelf(nums: number[]): number[] {
+    let zeroIdx = -1;
+    let allMultipl = 1; // 0이 아닌 모든 수의 곱
+    for (let i = 0; i < nums.length; i++) {
+        const num = nums[i];
+
+        if (num) {
+            allMultipl *= num;
+        } else { // num === 0
+            if (zeroIdx === -1) zeroIdx = i;
+            else return new Array(nums.length).fill(0);
+        }
+    }
+
+    if (zeroIdx === -1)
+        return nums.map((num) => allMultipl / num);
+    else // nums 중 0이 없음
+        return nums.map((num, i) => {
+            if (i === zeroIdx) return allMultipl;
+            else return 0;
+        })
+};
+
 // answer 2
+/*
 function productExceptSelf(nums: number[]): number[] {
     let numZeros = 0;
     let numZeroIdx = -1;
@@ -51,6 +76,7 @@ function productExceptSelf(nums: number[]): number[] {
     else // 0이 2개 이상
         return new Array(nums.length).fill(0);
 };
+*/
 
 // answer 1
 /*
