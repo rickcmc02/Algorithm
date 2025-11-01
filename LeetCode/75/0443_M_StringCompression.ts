@@ -36,32 +36,68 @@ Constraints:
 chars[i] is a lowercase English letter, uppercase English letter, digit, or symbol.
 */
 
-const splitNumToStrings = (num: number): string[] => {
-  return (num + "").split("");
-};
+// answer 2
 
 function compress(chars: string[]): number {
-  const answer: string[] = [];
-  let lastChar = "";
-  let dupNum = 0; // 중복 횟수
+    let idx = 0;
+    let curr = "";
+    let cnt = 0;
 
-  for (let i = 0; i < chars.length; i++) {
-    const char = chars[i];
-    if (char === lastChar) {
-      dupNum++;
-    } else {
-      if (dupNum) {
-        answer.push(...splitNumToStrings(dupNum + 1));
-      }
-      answer.push(char);
-      lastChar = char;
-      dupNum = 0;
+    chars.push(""); // +1 만큼 더 돌도록 공백 추가
+    for (const char of chars) {
+        if (!curr) { // 처음
+            curr = char;
+            cnt = 1;
+        } else if (char === curr) {
+            cnt++;
+        } else {
+            chars[idx] = curr; // 이전 문자 더해주기 ("c")
+            idx++;
+            curr = char;
+
+            if (cnt > 1) {
+                const splitedStrNum = String(cnt).split("");
+                for (const strNum of splitedStrNum) {
+                    chars[idx] = strNum; // 쪼개진 숫자 하나씩 더해줌 (12 -> "1", "2")
+                    idx++;
+                }
+            }
+            cnt = 1;
+        }
     }
-  }
-  // 마지막 문자 중복 있을 경우 추가
-  if (dupNum) answer.push(...splitNumToStrings(dupNum + 1));
-  // chars 원본 array 값 수정
-  answer.forEach((str, idx) => (chars[idx] = str));
 
-  return answer.length;
-}
+    return idx;
+};
+
+
+// answer 1
+
+// const splitNumToStrings = (num: number): string[] => {
+//   return (num + "").split("");
+// };
+
+// function compress(chars: string[]): number {
+//   const answer: string[] = [];
+//   let lastChar = "";
+//   let dupNum = 0; // 중복 횟수
+
+//   for (let i = 0; i < chars.length; i++) {
+//     const char = chars[i];
+//     if (char === lastChar) {
+//       dupNum++;
+//     } else {
+//       if (dupNum) {
+//         answer.push(...splitNumToStrings(dupNum + 1));
+//       }
+//       answer.push(char);
+//       lastChar = char;
+//       dupNum = 0;
+//     }
+//   }
+//   // 마지막 문자 중복 있을 경우 추가
+//   if (dupNum) answer.push(...splitNumToStrings(dupNum + 1));
+//   // chars 원본 array 값 수정
+//   answer.forEach((str, idx) => (chars[idx] = str));
+
+//   return answer.length;
+// }
