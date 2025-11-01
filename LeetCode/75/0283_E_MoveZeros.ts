@@ -21,15 +21,36 @@ Constraints:
 -231 <= nums[i] <= 231 - 1
 */
 
+// answer 2
+
 function moveZeroes(nums: number[]): void {
-  let zeroCounter = 0;
-  const neoList: number[] = [];
+    const dcNums = [...nums];
+    let idx = 0;
 
-  nums.forEach((num) => {
-    if (num) neoList.push(num);
-    else zeroCounter++;
-  });
+    for (const num of dcNums) {
+        if (num) {
+            nums[idx] = num;
+            idx++;
+        }
+    }
 
-  if (zeroCounter) neoList.push(...new Array(zeroCounter).fill(0));
-  neoList.forEach((num, idx) => (nums[idx] = num));
-}
+    for (let i = idx; i < nums.length; i++) {
+        nums[i] = 0;
+    }
+};
+
+
+// answer 1
+
+// function moveZeroes(nums: number[]): void {
+//   let zeroCounter = 0;
+//   const neoList: number[] = [];
+
+//   nums.forEach((num) => {
+//     if (num) neoList.push(num);
+//     else zeroCounter++;
+//   });
+
+//   if (zeroCounter) neoList.push(...new Array(zeroCounter).fill(0));
+//   neoList.forEach((num, idx) => (nums[idx] = num));
+// }
