@@ -24,6 +24,25 @@ Constraints:
 -231 <= nums[i] <= 231 - 1
 */
 
+// answer 2
+
+function increasingTriplet(nums: number[]): boolean {
+    let first = Infinity, second = Infinity;
+
+    for (const num of nums) {
+        if (num <= first) {
+            first = num;
+        } else if (num <= second) {
+            second = num;
+        } else return true;
+    }
+
+    return false;
+};
+
+// answer 1
+
+/*
 function increasingTriplet(nums: number[]): boolean {
   let [first, second] = [Infinity, Infinity]; // 최대값 비교시 Infinity 적극 활용
   // gpt 조언받음 - 탐구해서 내재화
@@ -36,3 +55,4 @@ function increasingTriplet(nums: number[]): boolean {
 
   return false;
 }
+*/
