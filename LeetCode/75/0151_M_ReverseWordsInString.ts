@@ -32,8 +32,29 @@ s contains English letters (upper-case and lower-case), digits, and spaces ' '.
 There is at least one word in s.
 */
 
-// answer 1
+// answer 2
 
+function reverseWords(s: string): string {
+    const splited = s.split(" ");
+    const words: string[] = [];
+    let answer = "";
+
+    for (const sp of splited) {
+        if (sp) words.push(sp);
+    }
+
+    const wordLen = words.length;
+    for (let i = wordLen - 1; i >= 0; i--) {
+        const word = words[i];
+        if (answer) answer += " " + word;
+        else answer = word;
+    }
+
+    return answer;
+};
+
+// answer 1
+/*
 function reverseWords(s: string): string {
   const wordList = s.trim().split(" ");
   const wListLen = wordList.length;
@@ -49,3 +70,4 @@ function reverseWords(s: string): string {
 
   return answer;
 }
+*/
