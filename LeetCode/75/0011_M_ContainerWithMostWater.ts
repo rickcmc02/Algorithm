@@ -28,6 +28,38 @@ n == height.length
 0 <= height[i] <= 104
 */
 
+// answer 2
+
+const calWater = (leftIdx, rightIdx, leftHeight, rightHeight) => {
+    return Math.min(leftHeight, rightHeight) * (rightIdx - leftIdx);
+}
+
+function maxArea(height: number[]): number {
+    let li = 0;
+    let ri = height.length - 1;
+    let lh = height[li];
+    let rh = height[ri];
+    let maxWater = calWater(li, ri, lh, rh);
+
+    while (li < ri) {
+        // 둘 중 짧은 쪽 이동!
+        if (lh < rh) {
+            li++;
+            lh = height[li];
+        } else {
+            ri--;
+            rh = height[ri];
+        }
+
+        const currWater = calWater(li, ri, lh, rh);
+        if (currWater > maxWater) maxWater = currWater;
+    }
+
+    return maxWater;
+};
+
+// answer 1
+/*
 function maxArea(height: number[]): number {
   let hLen = height.length;
   let lh = 0; // 라인 높이
@@ -68,3 +100,4 @@ function maxArea(height: number[]): number {
 
   return maxCon;
 };
+*/
