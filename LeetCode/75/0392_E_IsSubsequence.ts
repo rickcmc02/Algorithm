@@ -25,6 +25,24 @@ s and t consist only of lowercase English letters.
 Follow up: Suppose there are lots of incoming s, say s1, s2, ..., sk where k >= 109, and you want to check one by one to see if t has its subsequence. In this scenario, how would you change your code?
 */
 
+// answer 2
+
+function isSubsequence(s: string, t: string): boolean {
+    if (!s) return true; // s가 빈 스트링이면 성립
+    if (!t) return false; // s가 있는데 t가 빈 스트링이면 불성립
+
+    let sIdx = 0;
+
+    for (let i = 0; i < t.length; i++) {
+        if (s[sIdx] === t[i]) sIdx++; // s 같은 값 t에서 발견하면 한칸 이동
+        if (sIdx === s.length) return true; // s 순회 완료
+    }
+
+    return false;
+};
+
+// answer 1
+/*
 function isSubsequence(s: string, t: string): boolean {
   let idxS = 0;
   if (!s) return true; // s가 빈 문자열인 경우
@@ -38,3 +56,4 @@ function isSubsequence(s: string, t: string): boolean {
 
   return false;
 };
+*/
