@@ -35,3 +35,29 @@ Constraints:
 1 <= price <= 105
 At most 104 calls will be made to next.
 */
+
+class StockSpanner {
+    priceList: number[] = [];
+
+    constructor() {
+    }
+
+    next(price: number): number {
+        const tmpPrices = this.priceList;
+        const pricesLen = tmpPrices.length;
+        let reverseIdx = 0;
+        let numDays = 1;
+        let isSearch = true;
+
+        while (isSearch && pricesLen - reverseIdx > 0) {
+            const currIdx = pricesLen - 1 - reverseIdx;
+            const comparePrice = tmpPrices[currIdx];
+            if (comparePrice <= price) numDays++;
+            else isSearch = false;
+            reverseIdx++;
+        }
+        this.priceList.push(price);
+
+        return numDays;
+    }
+}
