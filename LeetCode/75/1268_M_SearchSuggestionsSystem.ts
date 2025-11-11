@@ -31,3 +31,71 @@ products[i] consists of lowercase English letters.
 1 <= searchWord.length <= 1000
 searchWord consists of lowercase English letters.
 */
+
+class TrieNode {
+    children: Map<string, TrieNode>
+    isEnd: boolean;
+    words: string[];
+
+    constructor() {
+        this.children = new Map();
+        this.isEnd = false;
+        this.words = []; // 거쳐가는 단어 저장
+    }
+}
+
+class Trie {
+    root: TrieNode;
+
+    constructor() {
+        this.root = new TrieNode();
+    }
+
+    insert(word: string): void {
+        const splited = word.split("");
+        let currNode: TrieNode = this.root;
+
+        for (const char of splited) {
+            if (!currNode.children.has(char))
+                currNode.children.set(char, new TrieNode());
+            
+            currNode.words.push(word); // unique하기 때문에 기포함여부 검증 필요 없음
+
+            currNode = currNode.children.get(char)!;
+        }
+
+        currNode.words.push(word); // 끝나는 단계에서도 원 단어 포함시키기
+        currNode.isEnd = true;
+    }
+
+    wordsStartsWith(prefix: string): string[] {
+        const splited = prefix.split("");
+        let currNode = this.root;
+
+        for (const char of splited) {
+            if (!currNode.children.has(char)) return []; // 일치하는 단어 없음
+
+            currNode = currNode.children.get(char)!;
+        }
+
+        return currNode.words;
+    }
+}
+
+
+function suggestedProducts(products: string[], searchWord: string): string[][] {
+    const trie = new Trie();
+    const suggestions: string[][] = [];
+
+    for (const product of products) {
+        trie.insert(product);
+    }
+
+    let currSearch = "";
+    for (const char of searchWord) {
+        currSearch += char;
+        suggestions.push(trie.wordsStartsWith(currSearch).sort().slice(0, 3));
+    }
+
+    return suggestions;
+};
