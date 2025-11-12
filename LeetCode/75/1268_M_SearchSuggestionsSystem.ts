@@ -82,7 +82,6 @@ class Trie {
     }
 }
 
-
 function suggestedProducts(products: string[], searchWord: string): string[][] {
     const trie = new Trie();
     const suggestions: string[][] = [];
