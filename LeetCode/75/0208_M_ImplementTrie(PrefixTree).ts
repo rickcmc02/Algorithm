@@ -33,3 +33,22 @@ Constraints:
 word and prefix consist only of lowercase English letters.
 At most 3 * 104 calls in total will be made to insert, search, and startsWith.
 */
+
+class Trie0208 {
+    data: string[] = [];
+
+    constructor() {
+    }
+
+    insert(word: string): void {
+        this.data.push(word);
+    }
+
+    search(word: string): boolean {
+        return this.data.includes(word);
+    }
+
+    startsWith(prefix: string): boolean {
+        return this.data.some((datum) => datum.startsWith(prefix));
+    }
+}
