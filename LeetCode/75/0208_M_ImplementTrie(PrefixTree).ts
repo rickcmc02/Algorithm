@@ -34,6 +34,69 @@ word and prefix consist only of lowercase English letters.
 At most 3 * 104 calls in total will be made to insert, search, and startsWith.
 */
 
+// answer 2
+
+class TrieNode0208 {
+    children: Map<string, TrieNode0208>;
+    isEnd: boolean;
+
+    constructor() {
+        this.children = new Map();
+        this.isEnd = false;
+    }
+}
+
+
+class Trie0208 {
+    root: TrieNode0208
+
+    constructor() {
+        this.root = new TrieNode0208();
+    }
+
+    insert(word: string): void {
+        const splited = word.split("");
+        let currNode = this.root;
+
+        for (const char of splited) {
+            if (!currNode.children.has(char))
+                currNode.children.set(char, new TrieNode0208());
+
+            currNode = currNode.children.get(char)!;
+        }
+
+        currNode.isEnd = true;
+    }
+
+    search(word: string): boolean {
+        const splited = word.split("");
+        let currNode = this.root;
+
+        for (const char of splited) {
+            if (!currNode.children.has(char)) return false;
+
+            currNode = currNode.children.get(char)!;
+        }
+
+        return currNode.isEnd;
+    }
+
+    startsWith(prefix: string): boolean {
+        const splited = prefix.split("");
+        let currNode = this.root;
+
+        for (const char of splited) {
+            if (!currNode.children.has(char)) return false;
+
+            currNode = currNode.children.get(char)!;
+        }
+
+        return true;
+    }
+}
+
+// answer 1
+/*
 class Trie0208 {
     data: string[] = [];
 
@@ -52,3 +115,4 @@ class Trie0208 {
         return this.data.some((datum) => datum.startsWith(prefix));
     }
 }
+    */
