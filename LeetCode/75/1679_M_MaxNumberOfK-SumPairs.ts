@@ -31,6 +31,8 @@ Constraints:
 1 <= k <= 109
 */
 
+// answer 1
+
 function maxOperations(nums: number[], k: number): number {
   const diffDict: {[key in string]: number} = {};
   let numPair = 0;
