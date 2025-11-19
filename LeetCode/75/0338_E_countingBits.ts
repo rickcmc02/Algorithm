@@ -28,3 +28,23 @@ Constraints:
 
 0 <= n <= 105
 */
+
+// gpt helped
+
+function countBits(n: number): number[] {
+  const ans = new Array(n + 1).fill(0)
+
+  let base = 1 // 현재 구간의 시작 2^k 값 (1, 2, 4, 8, ...)
+
+  for (let i = 1; i <= n; i++) {
+    // i가 base * 2에 도달하면, 다음 2의 거듭제곱 범위로 이동
+    if (i === base * 2) {
+      base *= 2
+    }
+
+    // i = base + x 이므로, bitCount(i) = bitCount(x) + 1
+    ans[i] = ans[i - base] + 1
+  }
+
+  return ans
+};
