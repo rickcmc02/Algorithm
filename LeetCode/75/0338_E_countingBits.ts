@@ -29,8 +29,21 @@ Constraints:
 0 <= n <= 105
 */
 
-// gpt helped
+// answer 2 (gpt helped)
 
+function countBits(n) {
+  const ans = new Array(n + 1).fill(0)
+
+  for (let i = 1; i <= n; i++) {
+    ans[i] = ans[i >> 1] + (i & 1)
+  }
+
+  return ans
+}
+
+
+// answer 1 (gpt helped)
+/*
 function countBits(n: number): number[] {
   const ans = new Array(n + 1).fill(0)
 
@@ -48,3 +61,4 @@ function countBits(n: number): number[] {
 
   return ans
 };
+*/
