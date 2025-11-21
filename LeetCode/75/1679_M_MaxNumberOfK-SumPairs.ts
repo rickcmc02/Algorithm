@@ -31,25 +31,47 @@ Constraints:
 1 <= k <= 109
 */
 
-// answer 1
+// answer 2
 
 function maxOperations(nums: number[], k: number): number {
-  const diffDict: {[key in string]: number} = {};
-  let numPair = 0;
+    const diffMap: Map<number, number> = new Map();
+    let cnt = 0; // pair 갯수
 
-  for (const num of nums) {
-      if (num >= k) continue;
+    for (const num of nums) {
+        const tgt = k - num;
+        if (diffMap.has(tgt)) { // 짝과 만남
+            const curr = diffMap.get(tgt)! - 1; // 기존 값에서 차감
+            if (curr) diffMap.set(tgt, curr);
+            else diffMap.delete(tgt);
+            cnt++;
+        } else { // 짝을 기다리는 수 추가
+            if (diffMap.has(num)) diffMap.set(num, diffMap.get(num)! + 1);
+            else diffMap.set(num, 1);
+        }
+    }
 
-      const diff = k - num;
-      if (diffDict[num]) {
-          diffDict[num]--;
-          numPair++;
-      } else {
-          // diffDict[num]이 없거나 value가 0
-          if (diffDict[diff]) diffDict[diff]++;
-          else diffDict[diff] = 1;
-      }
-  };
-
-  return numPair;
+    return cnt;
 };
+
+// answer 1
+
+// function maxOperations(nums: number[], k: number): number {
+//   const diffDict: {[key in string]: number} = {};
+//   let numPair = 0;
+
+//   for (const num of nums) {
+//       if (num >= k) continue;
+
+//       const diff = k - num;
+//       if (diffDict[num]) {
+//           diffDict[num]--;
+//           numPair++;
+//       } else {
+//           // diffDict[num]이 없거나 value가 0
+//           if (diffDict[diff]) diffDict[diff]++;
+//           else diffDict[diff] = 1;
+//       }
+//   };
+
+//   return numPair;
+// };
