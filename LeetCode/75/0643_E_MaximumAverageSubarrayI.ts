@@ -23,6 +23,25 @@ n == nums.length
 -104 <= nums[i] <= 104
 */
 
+// answer 2
+
+function findMaxAverage(nums: number[], k: number): number {
+    let sumK = 0;
+    let maxSum = 0;
+
+    for (let i = 0; i < k; i++) sumK += nums[i];
+    maxSum = sumK;
+
+    for (let i = k; i < nums.length; i++) {
+        sumK = sumK - nums[i - k] + nums[i];
+        if (sumK > maxSum) maxSum = sumK;
+    }
+
+    return maxSum / k;
+};
+
+// answer 1
+/*
 function findMaxAverage(nums: number[], k: number): number {
   let sum = nums.slice(0, k).reduce((a, b) => a + b, 0);
   let maxSum = sum;
@@ -34,3 +53,4 @@ function findMaxAverage(nums: number[], k: number): number {
 
   return maxSum / k;
 };
+*/
