@@ -29,6 +29,11 @@ s consists of lowercase English letters.
 1 <= k <= s.length
 */
 
+// answer 2
+
+
+// answer 1
+/*
 const VOWEL_SET = new Set(["a", "e", "i", "o", "u"]);
 
 function maxVowels(s: string, k: number): number {
@@ -50,3 +55,4 @@ function maxVowels(s: string, k: number): number {
 
     return maxSum;
 };
+*/
