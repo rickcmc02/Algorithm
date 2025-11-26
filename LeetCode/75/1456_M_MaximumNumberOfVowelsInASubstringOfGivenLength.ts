@@ -31,6 +31,29 @@ s consists of lowercase English letters.
 
 // answer 2
 
+const VOWEL_SET = new Set(["a", "e", "i", "o", "u"]);
+
+function maxVowels(s: string, k: number): number {
+    let maxLen = 0;
+    let currLen = 0;
+
+    for (let i = 0; i < k; i++) {
+        const char = s[i];
+        if (VOWEL_SET.has(char)) currLen++;
+    }
+    maxLen = currLen;
+
+    for (let i = k; i < s.length; i++) {
+        const outChar = s[i - k];
+        const inChar = s[i];
+
+        if (VOWEL_SET.has(outChar)) currLen--;
+        if (VOWEL_SET.has(inChar)) currLen++;
+        if (currLen > maxLen) maxLen = currLen;
+    }
+
+    return maxLen;
+};
 
 // answer 1
 /*
