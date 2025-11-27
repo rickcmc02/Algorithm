@@ -24,10 +24,35 @@ nums[i] is either 0 or 1.
 0 <= k <= nums.length
 */
 
+// answer 2
 function longestOnes(nums: number[], k: number): number {
-  /**
-      k가 0일 수 있음
-   */
+    let maxLen = 0;
+    const numLen = nums.length;
+    const zeroPos: number[] = [-1]; // 맨 처음에도 0이 있다고 가정
+    
+    for (let i = 0; i < numLen; i++) {
+        const num = nums[i];
+        if (num === 0) zeroPos.push(i);
+    }
+    zeroPos.push(numLen); // 마지막에도 0이 있다고 가정
+    const zeroLen = zeroPos.length;
+
+    // 방어 코드 (k보다 실제 0의 갯수가 같거나 적을 경우, 무조건 0이 전부 차므로 numLen)
+    if (k >= zeroLen - 2) return numLen;
+
+    for (let i = k + 1; i < zeroLen; i++) { // 초기값 k + 1: 1~k번째 0 채워져 있다고 가정하고 카운트
+        const consecutiveLen = zeroPos[i] - zeroPos[i - k - 1] - 1; // 길이기 때문에 양쪽 끝 0 인덱스 차이에서 -1 해야함
+        if (consecutiveLen > maxLen) maxLen = consecutiveLen;
+    }
+
+    return maxLen;
+};
+
+
+// answer 1
+/*
+function longestOnes(nums: number[], k: number): number {
+  // k가 0일 수 있음
 
   const zeroIdxList: number[] = [-1]; // 시작 전(-1번 인덱스)에 0이 있는 것으로 가정
   let maxLen = 0;
@@ -53,3 +78,4 @@ function longestOnes(nums: number[], k: number): number {
 
   return maxLen - 1;
 };
+*/
