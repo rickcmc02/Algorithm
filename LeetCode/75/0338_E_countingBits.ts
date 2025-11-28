@@ -41,7 +41,6 @@ function countBits(n) {
   return ans
 }
 
-
 // answer 1 (gpt helped)
 /*
 function countBits(n: number): number[] {
