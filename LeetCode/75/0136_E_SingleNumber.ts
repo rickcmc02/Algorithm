@@ -31,3 +31,16 @@ Constraints:
 -3 * 104 <= nums[i] <= 3 * 104
 Each element in the array appears twice except for one element which appears only once.
 */
+
+function singleNumber(nums: number[]): number {
+    const numSet: Set<number> = new Set();
+
+    for (const num of nums) {
+        if (numSet.has(num)) numSet.delete(num);
+        else numSet.add(num);
+    }
+
+    let answer = Infinity;
+    numSet.forEach((num) => answer = num);
+    return answer;
+};
