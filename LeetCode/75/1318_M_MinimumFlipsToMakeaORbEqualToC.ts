@@ -28,6 +28,7 @@ Constraints:
 1 <= c <= 10^9
 */
 
+
 function minFlips(a: number, b: number, c: number): number {
     const [aBin, bBin, cBin] = [a.toString(2), b.toString(2), c.toString(2)];
     const [aLen, bLen, cLen] = [aBin.length, bBin.length, cBin.length];
