@@ -28,8 +28,35 @@ Constraints:
 nums[i] is either 0 or 1.
 */
 
-// answer 1
+// answer 2
 
+function longestSubarray(nums: number[]): number {
+    const numsLen = nums.length;
+    let [startIdx, endIdx] = [0, 0];
+    let lastZeroIdx = -1;
+    let longestLen = 0;
+    nums.push(0); // 끝에 0을 추가함으로서 for문 내 로직 끝까지 돌도록
+
+    for (let i = 0; i < numsLen + 1; i++) {
+        const currVal = nums[i];
+        
+        if (!currVal) {
+            const diff = endIdx - startIdx;
+            if (diff > longestLen) longestLen = diff;
+            startIdx = lastZeroIdx + 1; // 지난번 0 위치 + 1 => 맨 앞 1 위치
+            lastZeroIdx = i; // 새로운 0 위치 저장
+        }
+        endIdx = i;
+    }
+
+    // 0이 없는 경우에도 Deleting One Element 해야하니까
+    if (lastZeroIdx === -1) return numsLen - 1;
+
+    return longestLen;
+};
+
+// answer 1
+/*
 function longestSubarray(nums: number[]): number {
   let maxLen = 0;
 
@@ -49,3 +76,4 @@ function longestSubarray(nums: number[]): number {
   // Longest Subarray의 앞 index, 뒤 index의 차이이므로 -1, 길이에서 한 개의 0이 제외되므로 추가로 -1
   return maxLen - 2;
 };
+*/
