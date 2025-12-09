@@ -24,8 +24,22 @@ n == gain.length
 -100 <= gain[i] <= 100
 */
 
-// answer 1
+// answer 2
 
+function largestAltitude(gain: number[]): number {
+    let highest = 0;
+    let altitude = 0;
+
+    for (const g of gain) {
+        altitude += g;
+        if (altitude > highest) highest = altitude;
+    }
+
+    return highest;
+};
+
+// answer 1
+/*
 function largestAltitude(gain: number[]): number {
   let maxHeight = -Infinity;
   let currHeight = 0;
@@ -37,3 +51,4 @@ function largestAltitude(gain: number[]): number {
   if (maxHeight < 0) return 0;
   return maxHeight;
 };
+*/
