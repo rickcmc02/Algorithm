@@ -28,6 +28,9 @@ Constraints:
 1 <= c <= 10^9
 */
 
+// answer 2 - 2진수니까 2로 나눈 나머지로 비교하는 방법 가능
+
+// answer 1
 
 function minFlips(a: number, b: number, c: number): number {
     const [aBin, bBin, cBin] = [a.toString(2), b.toString(2), c.toString(2)];
