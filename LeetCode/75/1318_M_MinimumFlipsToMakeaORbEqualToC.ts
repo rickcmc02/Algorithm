@@ -29,7 +29,6 @@ Constraints:
 */
 
 // answer 2 - 2진수니까 2로 나눈 나머지로 비교하는 방법 가능
-
 // answer 1
 
 function minFlips(a: number, b: number, c: number): number {
