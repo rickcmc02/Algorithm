@@ -40,6 +40,8 @@ Constraints:
 
 */
 
+// answer 1
+
 function pivotIndex(nums: number[]): number {
   let leftSum = 0;
   let rightSum = nums.reduce((acc, cur) => acc + cur, 0);
