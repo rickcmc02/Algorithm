@@ -40,6 +40,8 @@ Constraints:
 
 */
 
+// answer 2
+
 // answer 1
 
 function pivotIndex(nums: number[]): number {
