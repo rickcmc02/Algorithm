@@ -42,8 +42,12 @@ Constraints:
 
 // answer 2
 
-// answer 1
+function pivotIndex(nums: number[]): number {
+  return 0;
+}
 
+// answer 1
+/*
 function pivotIndex(nums: number[]): number {
   let leftSum = 0;
   let rightSum = nums.reduce((acc, cur) => acc + cur, 0);
@@ -64,3 +68,4 @@ function pivotIndex(nums: number[]): number {
 
   return -1;
 };
+*/
