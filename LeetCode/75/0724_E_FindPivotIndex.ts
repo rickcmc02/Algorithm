@@ -46,6 +46,7 @@ function pivotIndex(nums: number[]): number {
   return 0;
 }
 
+
 // answer 1
 /*
 function pivotIndex(nums: number[]): number {
