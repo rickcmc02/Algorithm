@@ -28,7 +28,6 @@ Constraints:
 nums[i] is either 0 or 1.
 */
 
-
 // answer 2
 
 function longestSubarray(nums: number[]): number {
